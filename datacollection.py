@@ -2,6 +2,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from music21 import *
 
 
 # Authentic Music
@@ -10,13 +11,14 @@ r = requests.get(page_url)
 data = r.text
 soup = BeautifulSoup(data)
 
-# authentic music
-# i = 1
-# for link in soup.findAll('a', href=True):
-#     if os.path.splitext(os.path.basename(link['href']))[1] == '.mid':
-#         f = requests.get(link['href'])
-#         open('./training_data./authentic./%s.midi'%(i), 'wb').write(f.content)
-#         i = i+1
+# Authentic music
+i = 1
+for link in soup.findAll('a', href=True):
+    if os.path.splitext(os.path.basename(link['href']))[1] == '.mid':
+        f = requests.get(link['href'])
+        open('./training_data./authentic./%s.midi'%(i), 'wb').write(f.content)
+        i = i+1
+
 
 # Non-authentic music
 page_url = r"https://www.link.cs.cmu.edu/melody-generator/"
@@ -44,3 +46,22 @@ for j in range(300):
     link = driver.find_elements_by_link_text('MIDI file')[0]
     link.click()
     j = j+1
+
+
+# Clean authentic data to only be piano music
+directory = 'training_data/authentic'
+for file in os.listdir(directory):
+    data = converter.parse(os.path.join(directory, file))
+    s2 = instrument.partitionByInstrument(data)
+    temp = stream.Stream()
+    if s2 is not None:
+        if len(s2) == 1:
+            data.write('midi', './training_data./authenticpiano./%s' % (file))
+        else:
+            for part in s2:
+                if isinstance(part.getInstrument(), instrument.Piano) or part == None:
+                    temp.append(part)
+            temp.write('midi', './training_data./authenticpiano./%s' % (file))
+    elif s2 is None:
+        data.write('midi', './training_data./authenticpiano./%s' % (file))
+    print('%s'%(file))
