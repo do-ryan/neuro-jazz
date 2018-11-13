@@ -8,6 +8,17 @@ from torch.utils.data import DataLoader
 from dataset import Dataset
 from models import CNN
 
+<<<<<<< HEAD
+=======
+
+def main:
+
+
+if __name__ == "__main__":
+    main()
+
+# Training loop
+>>>>>>> 20669f425b781412eadd1744cb3514b71e2fed20
 def load_data(data, labels, batchsize):
     train_set = Dataset(data, labels)
     train_loader = DataLoader(train_set, batch_size=batchsize)
