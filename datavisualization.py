@@ -91,9 +91,6 @@ def plot_notes_contour(midipart, instrument, midi_path, time_range_to_plot):
         plt.colorbar(plot)
         plt.show()
 
-def grid_plot()
-        # take in a volume(pitch, time) numpy array and plots the data in a grid format
-
 def main():
 
         midi_path = "training_data/authentic/101.midi"
