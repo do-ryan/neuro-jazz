@@ -9,13 +9,11 @@ from torch.utils.data import DataLoader
 from dataset import Dataset
 from models import CNN
 
-instruments = []
 
 # Clean authentic data to only be piano music
 directory = 'training_data/authentic'
 for file in os.listdir(directory):
     data = converter.parse(os.path.join(directory, file))
-    instruments.append(list_instruments(data))
     s2 = instrument.partitionByInstrument(data)
     temp = stream.Stream()
     if s2 is not None:
@@ -39,7 +37,7 @@ def main:
 
 
 if __name__ == "__main__":
-    main()    main()
+    main()
 =======
 
 # # Training loop
