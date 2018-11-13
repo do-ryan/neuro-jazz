@@ -9,13 +9,11 @@ from dataset import Dataset
 from models import CNN
 
 
-<<<<<<< HEAD
 def main:
 
 
 if __name__ == "__main__":
     main()
-=======
 
 # Training loop
 def load_data(data, labels, batchsize):
@@ -110,4 +108,3 @@ def main():
 
 if __name__ == "__main__":
     main()
->>>>>>> 34d787edbea0991a60ab59dbe2a284479889190d
