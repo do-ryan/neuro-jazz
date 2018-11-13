@@ -1,17 +1,30 @@
 # models file
 
-import matplotlib.pyplot as plt
-import matplotlib.lines as mlines
-from music21 import converter, instrument, midi, pitch, note, chord
+import torch.nn as nn
+import torch.nn.functional as F
 
-# song = midi.MidiFile.open(filename='training_data/thejazzpage/caravan.midi')
-data = converter.parse('training_data/thejazzpage/caravan.midi')
-parts = instrument.partitionByInstrument(data)
-mf = midi.MidiFile()
-mf.open('./training_data./thejazzpage./caravan.midi')
-mf.read()
-base_midi = midi.translate.midiFileToStream(mf)
+class CNN(nn.Module):
+    def __init__(self):
+        super(CNN, self).__init__()
+        self.conv1 = nn.Conv2dd().double()
+        self.pool = nn.MaxPool2d(2)
+        self.conv2 = nn.Conv2d().double()
+        self.conv3 = nn.Conv2d().double()
+        self.fc1 = nn.Linear()
+        self.fc2 = nn.Linear()
+        self.fc3 = nn.Linear()
+        self.bn1 = nn.BatchNorm2d().double()
+        self.bn2 = nn.BatchNorm2d().double()
+        self.bn3 = nn.BatchNorm2d().double()
 
 
-
-print(3)
+    def forward(self, x):
+        x = self.pool(self.bn1(F.relu(self.conv1(x))))
+        x = self.pool(self.bn2(F.relu(self.conv2(x))))
+        x = self.pool(self.bn3(F.relu(self.conv3(x))))
+        x = x.view()
+        x = F.relu(self.fc1(x.float()))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        x = x.squeeze(1) # Flatten to [batch_size]
+        return x
