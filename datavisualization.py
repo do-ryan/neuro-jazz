@@ -93,7 +93,7 @@ def plot_notes_contour(midipart, instrument, midi_path, time_range_to_plot):
 
 def main():
 
-        midi_path = "training_data/authentic/101.midi"
+        midi_path = "training_data/authentic/5.midi"
         example1 = read_midi(midi_path)
         # parse midi file
 
@@ -106,7 +106,6 @@ def main():
         # plot histogram of note durations
 
         preprocessed_data = np.load('./data/instances.npy')
-
 
         print(list_instruments(example1))
 

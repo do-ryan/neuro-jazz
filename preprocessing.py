@@ -27,7 +27,7 @@ def subdivide_notes(pitches, note_offsets, volume, note_durations):
 def midi_to_npy(midifilepath):
 # takes in a midi filepath and returns a volume scaled one-hot encoded 2d npy array pitch x time. The midi file only has one track
 
-        midi_stream = converter.parse(midifilepath).parts[0] # midifiles should only have 1 part (temporarily?)
+        midi_stream = converter.parse(midifilepath).parts # midifiles should only have 1 part (temporarily?)
         pitches, parent_objects = extract_notes(midi_stream.flat.notes) # pitches is a list of floats of all pitch "instances in the midi file, parent_objects is a mix of note/chord objects. chord objects are repeated for each note in the chord
 
         note_offsets = np.asarray([n.offset for n in parent_objects]) # start time of notes in terms of quarter notes from start
@@ -38,7 +38,7 @@ def midi_to_npy(midifilepath):
 
 def main():
 
-        authentic_filepaths = glob.glob('training_data/authentic/*.mid*') # authentic midi filepaths
+        authentic_filepaths = glob.glob('training_data/authenticpiano/*.mid*') # authentic midi filepaths
         nonauthentic_filepaths = glob.glob('training_data/nonauthentic/*.mid*') # placeholder nonauthentic midi filepaths
         instances = []
         labels = []
