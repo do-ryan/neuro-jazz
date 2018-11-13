@@ -11,5 +11,9 @@ for file in os.listdir(directory):
     instruments.append(list_instruments(data))
 
 print(3)
+
+def main:
+
+
 if __name__ == "__main__":
     main()
