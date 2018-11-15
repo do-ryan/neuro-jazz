@@ -13,7 +13,10 @@ from models import CNN
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
@@ -34,7 +37,10 @@ if __name__ == "__main__":
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 20669f425b781412eadd1744cb3514b71e2fed20
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
@@ -52,6 +58,10 @@ def load_data(data, labels, batchsize):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
@@ -138,11 +148,14 @@ def main():
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             outputs = outputs.detach().numpy() # output of the model
 
             # Calculate the statistics
             corr = (outputs > 0.0).squeeze().astype(int) != labels
 =======
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
@@ -157,6 +170,9 @@ def main():
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
+=======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
@@ -174,7 +190,11 @@ def main():
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         print("Epoch {} | Train acc: {}".format(epoch + 1, 1 - train_err[epoch]))
+=======
+        print("Epoch {} | Train acc: {}".format(epoch + 1, 1 - train_err[epoch])
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
         print("Epoch {} | Train acc: {}".format(epoch + 1, 1 - train_err[epoch])
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200

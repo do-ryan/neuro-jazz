@@ -11,7 +11,10 @@ class CNN(nn.Module):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
@@ -26,6 +29,7 @@ class CNN(nn.Module):
         self.fc1 = nn.Linear(20 * 29 * , 64)
         self.fc2 = nn.Linear(64, 32)
         self.fc3 = nn.Linear(32, 1)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -87,6 +91,11 @@ class CNN(nn.Module):
 
     def forward(self, x):
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
+=======
+
+
+    def forward(self, x):
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))
         x = x.view(-1, 20 * 29 *  )
@@ -98,7 +107,10 @@ class CNN(nn.Module):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 20669f425b781412eadd1744cb3514b71e2fed20
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
