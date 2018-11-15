@@ -30,7 +30,11 @@ def midi_to_npy(midifilepath):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         midi_stream = converter.parse(midifilepath).parts # midifiles should only have 1 part (temporarily?)
+=======
+        midi_stream = converter.parse(midifilepath).parts[0] # midifiles should only have 1 part (temporarily?)
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
         midi_stream = converter.parse(midifilepath).parts[0] # midifiles should only have 1 part (temporarily?)
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
@@ -53,11 +57,14 @@ def main():
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         authentic_filepaths = glob.glob('training_data/authenticpiano/*.mid*') # authentic midi filepaths
         nonauthentic_filepaths = glob.glob('training_data/nonauthentic/*.mid*') # placeholder nonauthentic midi filepaths
         instances = []
         labels = []
 =======
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
@@ -68,6 +75,9 @@ def main():
         labels = np.array([])
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
+=======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
@@ -84,6 +94,7 @@ def main():
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 list.append(instances, midi_to_npy(file))
                 list.append(labels, 0)
 
@@ -96,6 +107,10 @@ def main():
 
         instances = np.stack(instances)
         labels = np.stack(labels)
+=======
+                np.append(instances, midi_to_npy(file))
+                np.append(labels, 0)
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
                 np.append(instances, midi_to_npy(file))
                 np.append(labels, 0)
