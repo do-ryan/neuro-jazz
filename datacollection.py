@@ -3,7 +3,6 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from music21 import *
-from datavisualization import list_instruments
 
 
 # Authentic Music
@@ -13,14 +12,12 @@ data = r.text
 soup = BeautifulSoup(data)
 
 i = 1
-for link in soup.findAll('a', href=True):
-    if os.path.splitext(os.path.basename(link['href']))[1] == '.mid':
-        f = requests.get(link['href'])
-        open('./training_data./authentic3./%s.midi'%(i), 'wb').write(f.content)
-        print(i)
-        i = i+1
+# for link in soup.findAll('a', href=True):
+#     if os.path.splitext(os.path.basename(link['href']))[1] == '.mid':
+#         f = requests.get(link['href'])
+#         open('./training_data./authentic./%s.midi'%(i), 'wb').write(f.content)
+#         i = i+1
 
-print('finished collecting authentic')
 
 # Non-authentic music
 page_url = r"https://www.link.cs.cmu.edu/melody-generator/"
@@ -51,37 +48,20 @@ values = ['0', '-1', '0', '0', '1', '0', '1', '0', '200']
 
 
 # Clean authentic data to only be piano music
-directory = 'training_data/authentic3'
-
-# for file in os.listdir(directory):
-#     data = converter.parse(os.path.join(directory, file))
-#     s2 = instrument.partitionByInstrument(data)
-#     print(list_instruments(data))
-#     temp = stream.Stream()
-#     check = 0           # check whether or not temp is an empty file
-#     melody = 1          # check if we're on track 1
-#     if s2:
-#         for part in s2:
-#             print(part.getInstrument())
-#             if melody == 1:
-#                 temp.append(part)
-#                 melody = 0
-#                 check = 1
-#                 continue
-#             if isinstance(part.getInstrument(), instrument.Piano):
-#                 temp.append(part)
-#                 check = 1
-#         temp.write('midi', './training_data./authenticpiano2./%s' % (file))
-#         if check == 0:
-#             data.write('midi', './training_data./authenticpiano2./%s' % (file))
-#         print('check: ', check)
-#     else:
-#         data.write('midi', './training_data./authenticpiano2./%s' % (file))
-#     print('saved %s'%(file))
-
-
+directory = 'training_data/authentic'
 for file in os.listdir(directory):
     data = converter.parse(os.path.join(directory, file))
-    print(list_instruments(data))
-    data.write('midi', './training_data./authenticpiano3./%s' % (file))
-
+    # s2 = instrument.partitionByInstrument(data)
+    # temp = stream.Stream()
+    # if s2 is not None:
+    #     if len(s2) == 1:
+    #         data.write('midi', './training_data./authenticpiano./%s' % (file))
+    #     else:
+    #         for part in s2:
+    #             if isinstance(part.getInstrument(), instrument.Piano):
+    #                 temp.append(part)
+    #         temp.write('midi', './training_data./authenticpiano./%s' % (file))
+    # elif s2 is None:
+    #     data.write('midi', './training_data./authenticpiano./%s' % (file))
+    data.write('midi', './training_data./authenticpiano./%s' % (file))
+    print('%s'%(file))
