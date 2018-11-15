@@ -10,7 +10,10 @@ from models import CNN
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 
@@ -22,7 +25,10 @@ if __name__ == "__main__":
 
 # Training loop
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 20669f425b781412eadd1744cb3514b71e2fed20
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 def load_data(data, labels, batchsize):
@@ -31,6 +37,10 @@ def load_data(data, labels, batchsize):
     return train_loader
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
@@ -105,16 +115,22 @@ def main():
             optimizer.step()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             outputs = outputs.detach().numpy() # output of the model
 
             # Calculate the statistics
             corr = (outputs > 0.0).squeeze().astype(int) != labels
 =======
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
             outputs = outputs.detach().numpy()
             predictions = outputs.argmax(axis=1)
 
             # Calculate the statistics
             corr = predictions != labels
+<<<<<<< HEAD
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
+=======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
             total_train_err += int(corr.sum())
             total_train_loss += loss.item()
@@ -123,7 +139,11 @@ def main():
         train_err[epoch] = float(total_train_err) / total_epoch
         train_loss[epoch] = float(total_train_loss) / (i + 1)
 <<<<<<< HEAD
+<<<<<<< HEAD
         print("Epoch {} | Train acc: {}".format(epoch + 1, 1 - train_err[epoch]))
+=======
+        print("Epoch {} | Train acc: {}".format(epoch + 1, 1 - train_err[epoch])
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
         print("Epoch {} | Train acc: {}".format(epoch + 1, 1 - train_err[epoch])
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
