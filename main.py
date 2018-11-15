@@ -12,7 +12,10 @@ from models import CNN
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
@@ -30,7 +33,10 @@ if __name__ == "__main__":
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 20669f425b781412eadd1744cb3514b71e2fed20
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
@@ -45,6 +51,10 @@ def load_data(data, labels, batchsize):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
