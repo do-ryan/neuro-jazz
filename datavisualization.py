@@ -93,10 +93,13 @@ def plot_notes_contour(midipart, instrument, midi_path, time_range_to_plot):
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 def main():
 
         midi_path = "training_data/authentic/5.midi"
 
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
@@ -122,6 +125,10 @@ def main():
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200

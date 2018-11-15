@@ -5,6 +5,10 @@ from selenium import webdriver
 from music21 import *
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+from datavisualization import list_instruments
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 from datavisualization import list_instruments
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
@@ -22,6 +26,7 @@ soup = BeautifulSoup(data)
 i = 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # for link in soup.findAll('a', href=True):
 #     if os.path.splitext(os.path.basename(link['href']))[1] == '.mid':
 #         f = requests.get(link['href'])
@@ -29,6 +34,8 @@ i = 1
 #         i = i+1
 
 =======
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 for link in soup.findAll('a', href=True):
@@ -40,6 +47,9 @@ for link in soup.findAll('a', href=True):
 
 print('finished collecting authentic')
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
+=======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
@@ -75,6 +85,7 @@ values = ['0', '-1', '0', '0', '1', '0', '1', '0', '200']
 # Clean authentic data to only be piano music
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 directory = 'training_data/authentic'
 for file in os.listdir(directory):
     data = converter.parse(os.path.join(directory, file))
@@ -93,6 +104,8 @@ for file in os.listdir(directory):
     data.write('midi', './training_data./authenticpiano./%s' % (file))
     print('%s'%(file))
 =======
+=======
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 directory = 'training_data/authentic3'
@@ -130,6 +143,9 @@ for file in os.listdir(directory):
     data.write('midi', './training_data./authenticpiano3./%s' % (file))
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
+=======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 =======
 >>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
