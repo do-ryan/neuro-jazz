@@ -91,27 +91,7 @@ def plot_notes_contour(midipart, instrument, midi_path, time_range_to_plot):
         plt.colorbar(plot)
         plt.show()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-def main():
 
-        midi_path = "training_data/authentic/5.midi"
-
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-# def grid_plot()
-        # take in a volume(pitch, time) numpy array and plots the data in a grid format
 
 def main():
 
@@ -129,26 +109,6 @@ def main():
 
         preprocessed_data = np.load('./data/instances.npy')
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
-
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
-
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
-
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
-
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
         print(list_instruments(example1))
 
         return
