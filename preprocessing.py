@@ -39,17 +39,17 @@ def midi_to_npy(midifilepath):
 
 def main():
 
-        authentic_filepaths = glob.glob('training_data/authenticpiano/*.mid*') # authentic midi filepaths
+        authentic_filepaths = glob.glob('training_data/authenticpiano3/*.mid*') # authentic midi filepaths
         nonauthentic_filepaths = glob.glob('training_data/nonauthentic/*.mid*') # placeholder nonauthentic midi filepaths
         instances = []
         labels = []
 
-        for file in authentic_filepaths:
+        for file in authentic_filepaths [0:19]:
                 print("parsing ", file)
                 list.append(instances, midi_to_npy(file))
                 list.append(labels, 1) # 1 represents authentic
 
-        for file in nonauthentic_filepaths:
+        for file in nonauthentic_filepaths[0:19]:
                 print("parsing ", file)
 
                 list.append(instances, midi_to_npy(file))
