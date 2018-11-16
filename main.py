@@ -89,7 +89,6 @@ def main():
             # Calculate the statistics
             corr = (outputs > 0.0).squeeze().astype(int) != labels
 
-            outputs = outputs.detach().numpy()
             predictions = outputs.argmax(axis=1)
 
             # Calculate the statistics
