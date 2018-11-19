@@ -49,13 +49,12 @@ def main():
                 list.append(instances, midi_to_npy(file))
                 list.append(labels, 1) # 1 represents authentic
 
-        # for file in nonauthentic_filepaths:
-        #         print("parsing ", file)
-        #
-        #         list.append(instances, midi_to_npy(file))
-        #         list.append(labels, 0)
-        #
-        #         max_instance_duration = 0
+        for file in nonauthentic_filepaths:
+                print("parsing ", file)
+                list.append(instances, midi_to_npy(file))
+                list.append(labels, 0)
+
+                max_instance_duration = 0
         for instance in instances:
                 max_instance_duration = max(max_instance_duration, (instance.shape[1]))
         for i in range(len(instances)):

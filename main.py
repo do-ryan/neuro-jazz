@@ -4,6 +4,7 @@ from datavisualization import list_instruments
 import os
 import numpy as np
 import torch
+import torch.nn as nn
 from torch.utils.data import DataLoader
 from dataset import Dataset
 from models import CNN, GAN
@@ -11,7 +12,7 @@ from models import CNN, GAN
 # Training loop
 def load_data(data, labels, batchsize):
     train_set = Dataset(data, labels)
-    train_loader = DataLoader(train_set, batch_size=batchsize)
+    train_loader = DataLoader(train_set, batch_size=batchsize, shuffle=True)
     return train_loader
 
 def evaluate(net, loader, criterion):
@@ -48,15 +49,16 @@ def generate(input, output, epochs):
 
 def main():
     MaxEpochs = 20
-    lr = 0.1
-    batch_size = 64
+    lr = 0.001
+    batch_size = 10
 
     net = CNN()
-    loss_fnc = torch.nn.CrossEntropyLoss()
+    loss_fnc = nn.BCEWithLogitsLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=lr)
 
     data = np.load('./data/instances.npy')
     labels = np.load('./data/labels.npy')
+
     train_loader = load_data(data, labels, batch_size)
 
     train_err = np.zeros(MaxEpochs)
@@ -83,7 +85,7 @@ def main():
             outputs = net(inputs)
             labels = torch.from_numpy(labels)
 
-            loss = loss_fnc(input=outputs, target=labels)
+            loss = loss_fnc(input=outputs, target=labels.double())
             loss.backward()
             optimizer.step()
 
@@ -92,7 +94,7 @@ def main():
             # Calculate the statistics
             corr = (outputs > 0.0).squeeze().astype(int) != labels
 
-            predictions = outputs.argmax(axis=1)
+            predictions = outputs.argmax(axis=0)
 
             # Calculate the statistics
             corr = predictions != labels
