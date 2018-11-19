@@ -21,7 +21,8 @@ class CNN(nn.Module):
         Assignment 3 code above
         '''
 
-        self.fc1 = nn.Linear(133*5484, 1).double()
+        #self.fc1 = nn.Linear(133*5250, 1).double()
+        self.fc1 = nn.Linear(133*29082, 1).double()
 
     def forward(self, x):
 
@@ -37,7 +38,9 @@ class CNN(nn.Module):
         Assignment 3 code above
         '''
 
-        x = x.contiguous().view(-1, 5484*133)
+        #x = x.contiguous().view(-1, 5250*133)
+        x = x.contiguous().view(-1, 133*29082)
         x = F.relu(self.fc1(x))
+        x = x.squeeze(1)
 
         return x
