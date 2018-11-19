@@ -6,7 +6,7 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 from dataset import Dataset
-from models import CNN
+from models import CNN, GAN
 
 # Training loop
 def load_data(data, labels, batchsize):
@@ -41,6 +41,9 @@ def evaluate(net, loader, criterion):
     loss = float(total_loss) / (i + 1)
 
     return err, loss
+
+def generate(input, output, epochs):
+    GAN(input, 20, output)
 
 
 def main():
