@@ -44,12 +44,12 @@ def main():
         instances = []
         labels = []
 
-        for file in authentic_filepaths:
+        for file in authentic_filepaths[0:100]:
                 print("parsing ", file)
                 list.append(instances, midi_to_npy(file))
                 list.append(labels, 1) # 1 represents authentic
 
-        for file in nonauthentic_filepaths:
+        for file in nonauthentic_filepaths[0:100]:
                 print("parsing ", file)
                 list.append(instances, midi_to_npy(file))
                 list.append(labels, 0)

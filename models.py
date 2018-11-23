@@ -22,7 +22,8 @@ class CNN(nn.Module):
         '''
 
         #self.fc1 = nn.Linear(133*5250, 1).double()
-        self.fc1 = nn.Linear(133*29082, 1).double()
+        # self.fc1 = nn.Linear(133*29082, 1).double()
+        self.fc1 = nn.Linear(62299860, 1).double()
 
     def forward(self, x):
 
@@ -39,7 +40,8 @@ class CNN(nn.Module):
         '''
 
         #x = x.contiguous().view(-1, 5250*133)
-        x = x.contiguous().view(-1, 133*29082)
+        # x = x.contiguous().view(-1, 133*29082)
+        x = x.contiguous().view(-1, 62299860)
         x = F.relu(self.fc1(x))
         x = x.squeeze(1)
 

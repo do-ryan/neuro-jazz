@@ -94,10 +94,10 @@ def main():
             # Calculate the statistics
             corr = (outputs > 0.0).squeeze().astype(int) != labels
 
-            predictions = outputs.argmax(axis=0)
+            # predictions = outputs.argmax(axis=0)
 
             # Calculate the statistics
-            corr = predictions != labels
+            # corr = predictions != labels
 
             total_train_err += int(corr.sum())
             total_train_loss += loss.item()
