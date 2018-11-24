@@ -49,8 +49,8 @@ def evaluate(net, loader, criterion):
 
 def main():
     MaxEpochs = 15
-    lr = 0.1
-    batch_size = 10
+    lr = 2 
+    batch_size = 8
 
     net = CNN().to(device)
     net = net.cuda()
@@ -82,7 +82,6 @@ def main():
             inputs, labels = data
             inputs = inputs.to(device)
             labels = labels.to(device)
-            labels = labels.cuda()
 
             inputs = inputs.permute(0, 2, 1)
             labels = np.asarray(labels)
@@ -103,19 +102,12 @@ def main():
             # Calculate the statistics
             corr = (outputs > 0.0).squeeze().astype(int) != labels
 
-            # predictions = outputs.argmax(axis=0)
-
-            # Calculate the statistics
-            # corr = predictions != labels
-
             total_train_err += int(corr.sum())
             total_train_loss += loss.item()
             total_epoch += len(labels)
-
         train_err[epoch] = float(total_train_err) / total_epoch
         train_loss[epoch] = float(total_train_loss) / (i + 1)
-
-        print("Epoch {} | Train acc: {}".format(epoch + 1, 1 - train_err[epoch]))
+        print("Epoch {} | Train acc: {} | Train loss: {}".format(epoch + 1, 1 - train_err[epoch], train_loss[epoch]))
 
 
 if __name__ == "__main__":
