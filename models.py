@@ -21,8 +21,6 @@ class CNN(nn.Module):
         '''
         Assignment 3 code above
         '''
-
-<<<<<<< HEAD
         p = 0
         s = 1
         k1 = (12, 96)
@@ -30,26 +28,13 @@ class CNN(nn.Module):
         L = (133, 46842)
         num_output_featuremaps = 5
 
-        #self.fc1 = nn.Linear(133*5250, 1).double()
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         #self.fc1 = nn.Linear(133*46842, 1).double()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=5, kernel_size=(k1[0], k1[1]), stride=s)
         self.conv2 = nn.Conv2d(in_channels=5, out_channels=num_output_featuremaps, kernel_size=(k2[0], k2[1]), stride=s)
         self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
         self.fc1 = nn.Linear(self.fc_inputsize, 2048).double()
         self.fc2 = nn.Linear(2048, 1).double()
-=======
-        # self.fc1 = nn.Linear(133*29082, 1).double()
-        self.fc1 = nn.Linear(62299860, 1).double()
->>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
-=======
-        # self.fc1 = nn.Linear(133*29082, 1).double()
-        self.fc1 = nn.Linear(62299860, 1).double()
->>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
-=======
-        self.fc1 = nn.Linear(133*5484, 1).double()
->>>>>>> parent of 9d1e08e... Training works on non-authentic + authentic data
 
     def forward(self, x):
 
@@ -65,27 +50,14 @@ class CNN(nn.Module):
         Assignment 3 code above
         '''
 
-<<<<<<< HEAD
         #x = x.contiguous().view(-1, 5250*133)
-<<<<<<< HEAD
-<<<<<<< HEAD
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv2(x))
         x = x.view(-1, self.fc_inputsize)
-=======
         # x = x.contiguous().view(-1, 133*29082)
->>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
-=======
-        # x = x.contiguous().view(-1, 133*29082)
->>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
         x = F.relu(self.fc1(x))
         x = F.sigmoid(self.fc2(x))
         x = x.squeeze(1)
-=======
-        x = x.contiguous().view(-1, 5484*133)
-        x = F.relu(self.fc1(x))
->>>>>>> parent of 9d1e08e... Training works on non-authentic + authentic data
-
         return x
 
 class GAN(nn.Module):
