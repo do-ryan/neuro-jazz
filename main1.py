@@ -7,13 +7,16 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from dataset import Dataset
 from models import CNN, GAN
-device = torch . device( "cuda:0" if torch . cuda . is_available() else "cpu" )
+from sklearn.model_selection import train_test_split
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # Training loop
-def load_data(data, labels, batchsize):
-    train_set = Dataset(data, labels)
+def load_data(data_train, labels_train, data_val, labels_val, batchsize):
+    train_set = Dataset(data_train, labels_train)
+    valid_set = Dataset(data_val, labels_val)
     train_loader = DataLoader(train_set, batch_size=batchsize, shuffle=True)
-    return train_loader
+    valid_loader = DataLoader(valid_set, batch_size=batchsize, shuffle=False)
+    return train_loader, valid_loader
 
 def evaluate(net, loader, criterion):
     """ Evaluate the network on the validation set."""
@@ -54,10 +57,19 @@ def main():
     loss_fnc = nn.BCEWithLogitsLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=lr)
 
-    data = np.load('./data/instances.npy')
-    labels = np.load('./data/labels.npy')
+    data = np.load('./data/instance_test.npy')
+    labels = np.load('./data/labels_test.npy')
 
-    train_loader = load_data(data, labels, batch_size)
+    print(data.shape)
+    print(labels.shape)
+    print(labels)
+    np.random.seed(0)
+    torch.manual_seed(0)
+    data_train, data_val, labels_train, labels_val = train_test_split(data, labels, test_size=0.2, random_state=0)  
+    train_loader, val_loader = load_data(data_train, labels_train, data_val, labels_val, batch_size)
+    
+    print('data_train size', data_train.shape, 'data_train', data_train)
+    print('train_loader', train_loader, 'train_loader shape', len(train_loader))
 
     train_err = np.zeros(MaxEpochs)
     train_loss = np.zeros(MaxEpochs)
@@ -73,12 +85,13 @@ def main():
         for i, data in enumerate(train_loader, 0):
             # Get the inputs
             inputs, labels = data
-
-            inputs = inputs.permute(0, 2, 1)
-            labels = np.asarray(labels)
-
             inputs = inputs.to(device)
             labels = labels.to(device)
+            
+            print(inputs.shape, 'input', inputs)
+            print(labels.shape)
+            inputs = inputs.permute(0, 2, 1)
+            labels = np.asarray(labels)
 
             # Zero the parameter gradients
             optimizer.zero_grad()

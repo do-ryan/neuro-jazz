@@ -55,6 +55,7 @@ def main():
 
         counter = 0
         for file in authentic_filepaths:
+            if counter <= 6:
                 if shorter_than_threshold(file, threshold=500):
                         print("parsing ", file)
                         list.append(instances, midi_to_npy(file))
@@ -86,8 +87,8 @@ def main():
         np.append(labels, 0)
 
 
-        np.save('./data/instances.npy', instances)
-        np.save('./data/labels.npy', labels)
+        np.save('./data/instance_test.npy', instances)
+        np.save('./data/labels_test.npy', labels)
         print('Instances and labels saved.')
         # save data
 

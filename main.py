@@ -101,15 +101,15 @@ def main():
             labels = np.asarray(labels)
 
             # Zero the parameter gradients
-            optimizer.zero_grad()
+            #optimizer.zero_grad()
 
             # Forward pass, backward pass, and optimize
-            outputs = net(inputs)
-            labels = torch.from_numpy(labels)
+            #outputs = net(inputs)
+            #labels = torch.from_numpy(labels)
 
-            loss = loss_fnc(input=outputs, target=labels)
-            loss.backward()
-            optimizer.step()
+            #loss = loss_fnc(input=outputs, target=labels)
+            #loss.backward()
+            #optimizer.step()
 
             d_loss_tot = d_loss_real + d_loss_fake
             d_loss_tot.backwards()
