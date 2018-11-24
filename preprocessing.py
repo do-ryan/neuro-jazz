@@ -44,17 +44,21 @@ def main():
         instances = []
         labels = []
 
+<<<<<<< HEAD
         for file in authentic_filepaths[0:100]:
                 print("parsing ", file)
                 list.append(instances, midi_to_npy(file))
                 list.append(labels, 1) # 1 represents authentic
+=======
         # for file in authentic_filepaths:
         #         print("parsing ", file)
         #         list.append(instances, midi_to_npy(file))
         #         list.append(labels, 1) # 1 represents authentic
+>>>>>>> parent of 9d1e08e... Training works on non-authentic + authentic data
 
         for file in nonauthentic_filepaths[0:100]:
                 print("parsing ", file)
+
                 list.append(instances, midi_to_npy(file))
                 list.append(labels, 0)
 

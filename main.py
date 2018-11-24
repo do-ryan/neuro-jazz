@@ -48,6 +48,7 @@ def generate(input, output, epochs):
 
 def main():
     MaxEpochs = 20
+<<<<<<< HEAD
     lr = 0.01
     batch_size = 16
 
