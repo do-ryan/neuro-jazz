@@ -8,6 +8,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from dataset import Dataset
 from models import CNN, GAN
+device = torch . device( "cuda:0" if torch . cuda . is_available() else "cpu" )
 
 # Training loop
 def load_data(data, labels, batchsize):
@@ -49,7 +50,8 @@ def main():
     lr = 0.001
     batch_size = 10
 
-    net = CNN()
+    net = CNN().to(device)
+
     loss_fnc = nn.BCEWithLogitsLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=lr)
 
@@ -72,8 +74,12 @@ def main():
         for i, data in enumerate(train_loader, 0):
             # Get the inputs
             inputs, labels = data
+
             inputs = inputs.permute(0, 2, 1)
             labels = np.asarray(labels)
+
+            inputs = inputs.to(device)
+            labels = labels.to(device)
 
             # Zero the parameter gradients
             optimizer.zero_grad()

@@ -77,3 +77,4 @@ class GAN(nn.Module):
         x = F.relu(x)
         x = x.view(133, self.output_size)
         return x
+
