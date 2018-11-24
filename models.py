@@ -1,5 +1,6 @@
 # models file
 
+import torch 
 import torch.nn as nn
 import torch.nn.functional as F
 
@@ -34,7 +35,7 @@ class CNN(nn.Module):
         self.conv2 = nn.Conv2d(in_channels=5, out_channels=num_output_featuremaps, kernel_size=(k2[0],k2[1]), stride=s).double()
         self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
         self.pool = nn.MaxPool2d(3,3)
-        self.fc1 = nn.Linear(self.fc_inputsize/81, 2048).double()
+        self.fc1 = nn.Linear(int(self.fc_inputsize/81), 2048).double()
         self.fc2 = nn.Linear(2048, 1).double()
 
     def forward(self, x):
@@ -52,7 +53,8 @@ class CNN(nn.Module):
         '''
 
         #x = x.contiguous().view(-1, 5250*133)
-        x = self.conv1(x)
+        x = torch.unsqueeze(x, dim=1)
+        x = self.conv1(x) #RuntimeError: Expected 4-dimensional input for 4-dimensional weight [5, 1, 12, 96], but got input of size [10, 18726, 133] instead
         x = F.relu(x)
         x = self.pool(x)
         x = F.relu(self.conv2(x))

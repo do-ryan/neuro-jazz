@@ -60,16 +60,10 @@ def main():
     data = np.load('./data/instance_test.npy')
     labels = np.load('./data/labels_test.npy')
 
-    print(data.shape)
-    print(labels.shape)
-    print(labels)
     np.random.seed(0)
     torch.manual_seed(0)
     data_train, data_val, labels_train, labels_val = train_test_split(data, labels, test_size=0.2, random_state=0)  
     train_loader, val_loader = load_data(data_train, labels_train, data_val, labels_val, batch_size)
-    
-    print('data_train size', data_train.shape, 'data_train', data_train)
-    print('train_loader', train_loader, 'train_loader shape', len(train_loader))
 
     train_err = np.zeros(MaxEpochs)
     train_loss = np.zeros(MaxEpochs)
@@ -87,9 +81,7 @@ def main():
             inputs, labels = data
             inputs = inputs.to(device)
             labels = labels.to(device)
-            
-            print(inputs.shape, 'input', inputs)
-            print(labels.shape)
+
             inputs = inputs.permute(0, 2, 1)
             labels = np.asarray(labels)
 
