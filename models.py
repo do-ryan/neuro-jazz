@@ -46,6 +46,7 @@ class CNN(nn.Module):
         # self.fc1 = nn.Linear(133*29082, 1).double()
         self.fc1 = nn.Linear(62299860, 1).double()
 >>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
+        self.fc1 = nn.Linear(133*5484, 1).double()
 
     def forward(self, x):
 
@@ -76,6 +77,8 @@ class CNN(nn.Module):
         x = F.relu(self.fc1(x))
         x = F.sigmoid(self.fc2(x))
         x = x.squeeze(1)
+        x = x.contiguous().view(-1, 5484*133)
+        x = F.relu(self.fc1(x))
 
         return x
 

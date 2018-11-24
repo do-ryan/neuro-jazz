@@ -4,7 +4,6 @@ from datavisualization import list_instruments
 import os
 import numpy as np
 import torch
-import torch.nn as nn
 from torch.utils.data import DataLoader
 from dataset import Dataset
 from models import CNN, GAN
@@ -12,7 +11,7 @@ from models import CNN, GAN
 # Training loop
 def load_data(data, labels, batchsize):
     train_set = Dataset(data, labels)
-    train_loader = DataLoader(train_set, batch_size=batchsize, shuffle=True)
+    train_loader = DataLoader(train_set, batch_size=batchsize)
     return train_loader
 
 def evaluate(net, loader, criterion):
@@ -64,10 +63,17 @@ def main():
 
     d_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
     g_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
+=======
+    lr = 0.1
+    batch_size = 64
+
+    net = CNN()
+    loss_fnc = torch.nn.CrossEntropyLoss()
+    optimizer = torch.optim.SGD(net.parameters(), lr=lr)
+>>>>>>> parent of 9d1e08e... Training works on non-authentic + authentic data
 
     data = np.load('./data/instances.npy')
     labels = np.load('./data/labels.npy')
-
     train_loader = load_data(data, labels, batch_size)
 
     # Training loop
@@ -87,15 +93,22 @@ def main():
             real_output = d_net(inputs)
             d_loss_real = loss_fnc(real_output, real_labels)
 
+<<<<<<< HEAD
             z = torch.randn(batch_size, latent_size)
             fake_output = g_net(z)
             predictions = d_net(fake_output)
             d_loss_fake = loss_fnc(predictions, fake_labels)
+=======
+            loss = loss_fnc(input=outputs, target=labels)
+            loss.backward()
+            optimizer.step()
+>>>>>>> parent of 9d1e08e... Training works on non-authentic + authentic data
 
             d_loss_tot = d_loss_real + d_loss_fake
             d_loss_tot.backwards()
             d_optimizer.step()
 
+<<<<<<< HEAD
             ## Train Generator
             z = torch.randn(batch_size, latent_size)
             fake_output = g_net(z)
@@ -103,6 +116,12 @@ def main():
             g_loss = loss_fnc(predictions, real_labels)         # bc we want to train G to minimize 1-D(G(z)) so we will maximize D(G(z))
             g_loss.backwards()
             g_optimizer.step()
+=======
+            # Calculate the statistics
+            corr = (outputs > 0.0).squeeze().astype(int) != labels
+
+            predictions = outputs.argmax(axis=1)
+>>>>>>> parent of 9d1e08e... Training works on non-authentic + authentic data
 
             # Calculate the statistics
 
