@@ -41,7 +41,6 @@ class CNN(nn.Module):
 
         #x = x.contiguous().view(-1, 5250*133)
         # x = x.contiguous().view(-1, 133*29082)
-        x = x.contiguous().view(-1, 62299860)
         x = F.relu(self.fc1(x))
         x = x.squeeze(1)
 
@@ -50,13 +49,17 @@ class CNN(nn.Module):
 class GAN(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(GAN, self).__init__()
+        self.input_size = input_size
+        self.output_size = output_size
         self.fc1 = nn.Linear(input_size, hidden_size)
         self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, output_size)
+        self.fc3 = nn.Linear(hidden_size, 133*output_size)
 
     def forward(self, x):
+        x = x.view(-1, self.input_size)     # maybe don't need?
         x = self.fc1(x)
         x = self.fc2(x)
         x = self.fc3(x)
         x = F.relu(x)
+        x = x.view(133, self.output_size)
         return x

@@ -51,62 +51,58 @@ def main():
     MaxEpochs = 20
     lr = 0.001
     batch_size = 10
+    latent_size = 64
+    hidden_size = 256
+    output_size = 46842
 
-    net = CNN()
+    d_net = CNN()
+    g_net = GAN(latent_size, hidden_size, output_size)
     loss_fnc = nn.BCEWithLogitsLoss()
-    optimizer = torch.optim.SGD(net.parameters(), lr=lr)
+    d_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
+    g_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
 
     data = np.load('./data/instances.npy')
     labels = np.load('./data/labels.npy')
 
     train_loader = load_data(data, labels, batch_size)
 
-    train_err = np.zeros(MaxEpochs)
-    train_loss = np.zeros(MaxEpochs)
-    epoch_arr = []
-
     # Training loop
-    for epoch in range(MaxEpochs):  # loop over the dataset multiple times
-        total_train_loss = 0.0
-        total_train_err = 0.0
-        total_epoch = 0
-        epoch_arr.append(epoch)
+    for epoch in range(MaxEpochs):
 
         for i, data in enumerate(train_loader, 0):
             # Get the inputs
             inputs, labels = data
             inputs = inputs.permute(0, 2, 1)
-            labels = np.asarray(labels)
+            real_labels = torch.ones(batch_size, 1)             # all training data for real images set to 1
+            fake_labels = torch.zeros(batch_size, 1)            # all output from generator fake so 0
 
-            # Zero the parameter gradients
-            optimizer.zero_grad()
+            d_optimizer.zero_grad()
+            g_optimizer.zero_grad()
 
-            # Forward pass, backward pass, and optimize
-            outputs = net(inputs)
-            labels = torch.from_numpy(labels)
+            ## Train Discriminator
+            real_output = d_net(inputs)
+            d_loss_real = loss_fnc(real_output, real_labels)
 
-            loss = loss_fnc(input=outputs, target=labels.double())
-            loss.backward()
-            optimizer.step()
+            z = torch.randn(batch_size, latent_size)
+            fake_output = g_net(z)
+            predictions = d_net(fake_output)
+            d_loss_fake = loss_fnc(predictions, fake_labels)
 
-            outputs = outputs.detach().numpy() # output of the model
+            d_loss_tot = d_loss_real + d_loss_fake
+            d_loss_tot.backwards()
+            d_optimizer.step()
+
+            ## Train Generator
+            z = torch.randn(batch_size, latent_size)
+            fake_output = g_net(z)
+            predictions = d_net(fake_output)
+            g_loss = loss_fnc(predictions, real_labels)         # bc we want to train G to minimize 1-D(G(z)) so we will maximize D(G(z))
+            g_loss.backwards()
+            g_optimizer.step()
 
             # Calculate the statistics
-            corr = (outputs > 0.0).squeeze().astype(int) != labels
 
-            # predictions = outputs.argmax(axis=0)
-
-            # Calculate the statistics
-            # corr = predictions != labels
-
-            total_train_err += int(corr.sum())
-            total_train_loss += loss.item()
-            total_epoch += len(labels)
-
-        train_err[epoch] = float(total_train_err) / total_epoch
-        train_loss[epoch] = float(total_train_loss) / (i + 1)
-
-        print("Epoch {} | Train acc: {}".format(epoch + 1, 1 - train_err[epoch]))
+            print("Epoch {} | Step {} | d_loss: {} | g_loss: {}".format(epoch + 1, i+1, d_loss_tot.item(), g_loss.item()))
 
 
 if __name__ == "__main__":
