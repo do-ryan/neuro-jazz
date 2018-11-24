@@ -65,6 +65,8 @@ def main():
     loss_fnc = nn.BCEWithLogitsLoss()
 <<<<<<< HEAD
     optimizer = torch.optim.Adam(net.parameters(), lr=lr)
+    d_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
+    g_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
 =======
     d_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
     g_optimizer = torch.optim.Adam(net.parameters(), lr=lr)

@@ -3,7 +3,11 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 3.6 (mie324)" jdkType="Python SDK" />
+=======
+    <orderEntry type="jdk" jdkName="Python 3.6 (NeuroJazz)" jdkType="Python SDK" />
+>>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
 =======
     <orderEntry type="jdk" jdkName="Python 3.6 (NeuroJazz)" jdkType="Python SDK" />
 >>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b

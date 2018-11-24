@@ -31,12 +31,17 @@ class CNN(nn.Module):
 
         #self.fc1 = nn.Linear(133*5250, 1).double()
 <<<<<<< HEAD
+<<<<<<< HEAD
         #self.fc1 = nn.Linear(133*46842, 1).double()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=5, kernel_size=(k1[0], k1[1]), stride=s)
         self.conv2 = nn.Conv2d(in_channels=5, out_channels=num_output_featuremaps, kernel_size=(k2[0], k2[1]), stride=s)
         self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
         self.fc1 = nn.Linear(self.fc_inputsize, 2048).double()
         self.fc2 = nn.Linear(2048, 1).double()
+=======
+        # self.fc1 = nn.Linear(133*29082, 1).double()
+        self.fc1 = nn.Linear(62299860, 1).double()
+>>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
 =======
         # self.fc1 = nn.Linear(133*29082, 1).double()
         self.fc1 = nn.Linear(62299860, 1).double()
@@ -58,9 +63,13 @@ class CNN(nn.Module):
 
         #x = x.contiguous().view(-1, 5250*133)
 <<<<<<< HEAD
+<<<<<<< HEAD
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv2(x))
         x = x.view(-1, self.fc_inputsize)
+=======
+        # x = x.contiguous().view(-1, 133*29082)
+>>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
 =======
         # x = x.contiguous().view(-1, 133*29082)
 >>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
