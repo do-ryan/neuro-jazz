@@ -1,6 +1,5 @@
 # Main file
 
-from datavisualization import list_instruments
 import os
 import numpy as np
 import torch

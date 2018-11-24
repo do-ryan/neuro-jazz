@@ -29,6 +29,7 @@ def midi_to_npy(midifilepath):
 
         midi_stream = converter.parse(midifilepath).parts[0] # midifiles should only have 1 part (temporarily?)
 
+
         pitches, parent_objects = extract_notes(midi_stream.flat.notes) # pitches is a list of floats of all pitch "instances in the midi file, parent_objects is a mix of note/chord objects. chord objects are repeated for each note in the chord
 
         note_offsets = np.asarray([n.offset for n in parent_objects]) # start time of notes in terms of quarter notes from start
@@ -37,6 +38,14 @@ def midi_to_npy(midifilepath):
 
         return subdivide_notes(np.asarray(pitches), note_offsets, volume, note_durations)
 
+def shorter_than_threshold(file, threshold):
+        # returns true if the midi file is less than threshold quarter notes
+        midi_stream = converter.parse(file).parts[0]
+        pitches, parent_objects = extract_notes(midi_stream.flat.notes)
+        note_offsets = np.asarray([n.offset for n in parent_objects])
+        print (max(note_offsets))
+        return max(note_offsets) < threshold
+
 def main():
 
         authentic_filepaths = glob.glob('training_data/authenticpiano3/*.mid*') # authentic midi filepaths
@@ -44,18 +53,20 @@ def main():
         instances = []
         labels = []
 
-
-        for file in authentic_filepaths[0:100]:
-                print("parsing ", file)
-                list.append(instances, midi_to_npy(file))
-                list.append(labels, 1) # 1 represents authentic
+        counter = 0
+        for file in authentic_filepaths:
+                if shorter_than_threshold(file, threshold=500):
+                        print("parsing ", file)
+                        list.append(instances, midi_to_npy(file))
+                        list.append(labels, 1) # 1 represents authentic
+                        counter += 1
 
         # for file in authentic_filepaths:
         #         print("parsing ", file)
         #         list.append(instances, midi_to_npy(file))
         #         list.append(labels, 1) # 1 represents authentic
 
-        for file in nonauthentic_filepaths:
+        for file in nonauthentic_filepaths[0:counter]:
                 print("parsing ", file)
 
                 list.append(instances, midi_to_npy(file))

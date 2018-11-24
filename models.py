@@ -67,7 +67,7 @@ class GAN(nn.Module):
         self.output_size = output_size
         self.fc1 = nn.Linear(input_size, hidden_size)
         self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, 133*output_size)
+        self.fc3 = nn.Linear(hidden_size, 48*output_size)
 
     def forward(self, x):
         x = x.view(-1, self.input_size)     # maybe don't need?
@@ -75,6 +75,6 @@ class GAN(nn.Module):
         x = self.fc2(x)
         x = self.fc3(x)
         x = F.relu(x)
-        x = x.view(133, self.output_size)
+        x = x.view(48, self.output_size)
         return x
 
