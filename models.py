@@ -33,10 +33,11 @@ class CNN(nn.Module):
         #self.fc1 = nn.Linear(133*46842, 1).double()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=5, kernel_size=(k1[0],k1[1]), stride=s).double()
         self.conv2 = nn.Conv2d(in_channels=5, out_channels=num_output_featuremaps, kernel_size=(k2[0],k2[1]), stride=s).double()
-        self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
+        #self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
+        self.fc_inputsize = 788850 
         self.pool = nn.MaxPool2d(3,3)
-        self.fc1 = nn.Linear(int(self.fc_inputsize/81), 2048).double()
-        self.fc2 = nn.Linear(2048, 1).double()
+        self.fc1 = nn.Linear(self.fc_inputsize/10, 100).double()
+        self.fc2 = nn.Linear(100, 1).double()
 
     def forward(self, x):
 
@@ -54,14 +55,17 @@ class CNN(nn.Module):
 
         #x = x.contiguous().view(-1, 5250*133)
         x = torch.unsqueeze(x, dim=1)
+        x = x.permute(0, 1, 3, 2)
         x = self.conv1(x) #RuntimeError: Expected 4-dimensional input for 4-dimensional weight [5, 1, 12, 96], but got input of size [10, 18726, 133] instead
         x = F.relu(x)
         x = self.pool(x)
-        x = F.relu(self.conv2(x))
+        x = self.conv2(x)
+        x = F.relu(x)
         x = self.pool(x)
-        x = x.view(-1, self.fc_inputsize)
+        x = x.view(-1, self.fc_inputsize/10)
         # x = x.contiguous().view(-1, 133*29082)
-        x = F.relu(self.fc1(x))
+        x = self.fc1(x)
+        x = F.relu(x)
         x = F.sigmoid(self.fc2(x))
         x = x.squeeze(1)
         return x
