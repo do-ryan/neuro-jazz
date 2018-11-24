@@ -58,15 +58,21 @@ def main():
     latent_size = 64
     hidden_size = 256
     output_size = 46842
+<<<<<<< HEAD
+>>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
+=======
 >>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
 
     d_net = CNN()
     g_net = GAN(latent_size, hidden_size, output_size)
     loss_fnc = nn.BCEWithLogitsLoss()
 <<<<<<< HEAD
+<<<<<<< HEAD
     optimizer = torch.optim.Adam(net.parameters(), lr=lr)
+=======
     d_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
     g_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
+>>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
 =======
     d_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
     g_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
