@@ -3,27 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from music21 import *
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-from datavisualization import list_instruments
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
-from datavisualization import list_instruments
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
-from datavisualization import list_instruments
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
-from datavisualization import list_instruments
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
-from datavisualization import list_instruments
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 
+from datavisualization import list_instruments
 
 # Authentic Music
 page_url = 'https://bushgrafts.com/midi/'
@@ -32,26 +13,13 @@ data = r.text
 soup = BeautifulSoup(data)
 
 i = 1
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 # for link in soup.findAll('a', href=True):
 #     if os.path.splitext(os.path.basename(link['href']))[1] == '.mid':
 #         f = requests.get(link['href'])
 #         open('./training_data./authentic./%s.midi'%(i), 'wb').write(f.content)
 #         i = i+1
 
-=======
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 for link in soup.findAll('a', href=True):
     if os.path.splitext(os.path.basename(link['href']))[1] == '.mid':
         f = requests.get(link['href'])
@@ -60,19 +28,6 @@ for link in soup.findAll('a', href=True):
         i = i+1
 
 print('finished collecting authentic')
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
 
 # Non-authentic music
 page_url = r"https://www.link.cs.cmu.edu/melody-generator/"
@@ -103,11 +58,7 @@ values = ['0', '-1', '0', '0', '1', '0', '1', '0', '200']
 
 
 # Clean authentic data to only be piano music
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 directory = 'training_data/authentic'
 for file in os.listdir(directory):
     data = converter.parse(os.path.join(directory, file))
@@ -125,15 +76,7 @@ for file in os.listdir(directory):
     #     data.write('midi', './training_data./authenticpiano./%s' % (file))
     data.write('midi', './training_data./authenticpiano./%s' % (file))
     print('%s'%(file))
-=======
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
+
 directory = 'training_data/authentic3'
 
 # for file in os.listdir(directory):
@@ -168,16 +111,3 @@ for file in os.listdir(directory):
     print(list_instruments(data))
     data.write('midi', './training_data./authenticpiano3./%s' % (file))
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
-=======
->>>>>>> 7a8353031e7d7dfbd428aa6c25dda20bd8847200
