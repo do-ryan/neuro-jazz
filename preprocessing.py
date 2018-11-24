@@ -55,7 +55,7 @@ def main():
 
         counter = 0
         for file in authentic_filepaths:
-            if counter <= 6:
+            if counter <= 24:
                 if shorter_than_threshold(file, threshold=500):
                         print("parsing ", file)
                         list.append(instances, midi_to_npy(file))
