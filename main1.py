@@ -48,11 +48,12 @@ def evaluate(net, loader, criterion):
 
 
 def main():
-    MaxEpochs = 20
-    lr = 0.001
+    MaxEpochs = 15
+    lr = 0.1
     batch_size = 10
 
     net = CNN().to(device)
+    net = net.cuda()
 
     loss_fnc = nn.BCEWithLogitsLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=lr)
@@ -81,6 +82,7 @@ def main():
             inputs, labels = data
             inputs = inputs.to(device)
             labels = labels.to(device)
+            labels = labels.cuda()
 
             inputs = inputs.permute(0, 2, 1)
             labels = np.asarray(labels)
@@ -91,12 +93,12 @@ def main():
             # Forward pass, backward pass, and optimize
             outputs = net(inputs)
             labels = torch.from_numpy(labels)
-
-            loss = loss_fnc(input=outputs, target=labels.double())
+            
+            loss = loss_fnc(input=outputs, target=labels.double().cuda())
             loss.backward()
             optimizer.step()
-
-            outputs = outputs.detach().numpy() # output of the model
+            
+            outputs = outputs.detach().cpu().numpy() # output of the model
 
             # Calculate the statistics
             corr = (outputs > 0.0).squeeze().astype(int) != labels
