@@ -49,26 +49,19 @@ def generate(input, output, epochs):
 
 def main():
     MaxEpochs = 20
-<<<<<<< HEAD
     lr = 0.01
     batch_size = 16
-=======
-    lr = 0.001
-    batch_size = 10
     latent_size = 64
     hidden_size = 256
     output_size = 46842
->>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
 
     d_net = CNN()
     g_net = GAN(latent_size, hidden_size, output_size)
     loss_fnc = nn.BCEWithLogitsLoss()
-<<<<<<< HEAD
     optimizer = torch.optim.Adam(net.parameters(), lr=lr)
-=======
+
     d_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
     g_optimizer = torch.optim.Adam(net.parameters(), lr=lr)
->>>>>>> fd2f309fa5fbaa0af0907bf1b6d5725d9e57716b
 
     data = np.load('./data/instances.npy')
     labels = np.load('./data/labels.npy')
