@@ -41,8 +41,8 @@ def main():
     args = parser.parse_args()
 
     #test_generator_to_midi(1, 16, 64 * 24)
-    data = np.load('./data/instance_test.npy')
-    labels = np.load('./data/labels_test.npy') #don't need labels, all of the training data is authentic
+    data = np.load('./data/instance_authentic.npy')
+    labels = np.load('./data/labels_authentic.npy') #don't need labels, all of the training data is authentic
 
     train_loader = load_data(data, labels, args.batch_size)
 

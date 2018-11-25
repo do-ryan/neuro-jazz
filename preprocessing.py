@@ -55,7 +55,7 @@ def main():
 
         counter = 0
         for file in authentic_filepaths:
-            if counter <= 24:
+            if counter <= 48:
                 if shorter_than_threshold(file, threshold=500):
                         print("parsing ", file)
                         list.append(instances, midi_to_npy(file))
@@ -67,13 +67,14 @@ def main():
         #         list.append(instances, midi_to_npy(file))
         #         list.append(labels, 1) # 1 represents authentic
 
-        for file in nonauthentic_filepaths[0:counter]:
-                print("parsing ", file)
+        # for file in nonauthentic_filepaths[0:counter]:
+        #         print("parsing ", file)
+        #
+        #         list.append(instances, midi_to_npy(file))
+        #         list.append(labels, 0)
+        #
+        max_instance_duration = 0
 
-                list.append(instances, midi_to_npy(file))
-                list.append(labels, 0)
-
-                max_instance_duration = 0
         for instance in instances:
                 max_instance_duration = max(max_instance_duration, (instance.shape[1]))
         for i in range(len(instances)):
@@ -87,8 +88,8 @@ def main():
         np.append(labels, 0)
 
 
-        np.save('./data/instance_test.npy', instances)
-        np.save('./data/labels_test.npy', labels)
+        np.save('./data/instance_authentic.npy', instances) # change this if the nonauthentic files are added in
+        np.save('./data/labels_authentic.npy', labels)
         print('Instances and labels saved.')
         # save data
 
