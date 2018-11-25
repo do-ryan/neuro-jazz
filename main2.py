@@ -30,7 +30,7 @@ def load_g_model(input_size, generated_size, lr, batch_size):
 
 def main():
 
-    test_generator_to_midi(1, 4, 24*4)
+    #test_generator_to_midi(1, 4, 24*4)
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--batch_size', type=int, default=8)
