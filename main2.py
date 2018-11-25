@@ -14,15 +14,15 @@ def load_data(data, labels, batchsize):
     train_loader = DataLoader(train_set, batch_size=batchsize)
     return train_loader
 
-def load_d_model(lr):
-    model = CNN().to(device)
+def load_d_model(lr, batch_size):
+    model = CNN(batch_size = batch_size).to(device)
     loss_fnc = torch.nn.BCELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 
     return model, loss_fnc, optimizer
 
-def load_g_model(input_size, generated_size, lr):
-    model = GAN(input_size=input_size, hidden_size = 100, output_size=generated_size).to(device)
+def load_g_model(input_size, generated_size, lr, batch_size):
+    model = GAN(input_size=input_size, hidden_size = 100, output_size=generated_size, batch_size=batch_size).to(device)
     loss_fnc = torch.nn.BCELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 
@@ -31,7 +31,7 @@ def load_g_model(input_size, generated_size, lr):
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batch_size', type=int, default=16)
+    parser.add_argument('--batch_size', type=int, default=8)
     parser.add_argument('--lr_d', type=float, default=0.01)
     parser.add_argument('--lr_g', type=float, default=0.01)
     parser.add_argument('--epochs', type=int, default=10)  # change default value to change hyperparameter value, or in run/debug configuration
@@ -44,10 +44,12 @@ def main():
     data = np.load('./data/instance_authentic.npy')
     labels = np.load('./data/labels_authentic.npy') #don't need labels, all of the training data is authentic
 
+    print(data.shape)
+  
     train_loader = load_data(data, labels, args.batch_size)
 
-    model_d, loss_fnc_d, optimizer_d = load_d_model(lr=args.lr_d)
-    model_g, loss_fnc_g, optimizer_g = load_g_model(input_size=args.latent_size, generated_size=args.generated_size, lr=args.lr_g)
+    model_d, loss_fnc_d, optimizer_d = load_d_model(lr=args.lr_d, batch_size= args.batch_size)
+    model_g, loss_fnc_g, optimizer_g = load_g_model(input_size=args.latent_size, generated_size=args.generated_size, lr=args.lr_g, batch_size = args.batch_size)
 
     t = 0
 

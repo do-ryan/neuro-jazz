@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class CNN(nn.Module):
-    def __init__(self):
+    def __init__(self, batch_size):
         # L is the size of the time step dimension of the input data
         super(CNN, self).__init__()
 
@@ -29,12 +29,11 @@ class CNN(nn.Module):
         L = (133,26502)
         num_output_featuremaps = 5
 
-
         #self.fc1 = nn.Linear(133*46842, 1).double()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=5, kernel_size=(k1[0],k1[1]), stride=s).double()
         self.conv2 = nn.Conv2d(in_channels=5, out_channels=num_output_featuremaps, kernel_size=(k2[0],k2[1]), stride=s).double()
         #self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
-        self.fc_inputsize = int(1494000/16) 
+        self.fc_inputsize = int(1494000/(batch_size*2)) 
         self.pool = nn.MaxPool2d(3,3)
         self.fc1 = nn.Linear(self.fc_inputsize, 2000).double()
         self.fc2 = nn.Linear(2000, 1).double()
@@ -71,10 +70,11 @@ class CNN(nn.Module):
         return x
 
 class GAN(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size):
+    def __init__(self, input_size, hidden_size, output_size, batch_size):
         super(GAN, self).__init__()
         self.input_size = input_size
         self.output_size = output_size
+	self.batch_size = batch_size
         self.fc1 = nn.Linear(input_size, hidden_size)
         self.fc2 = nn.Linear(hidden_size, hidden_size)
         self.fc3 = nn.Linear(hidden_size, 133*output_size)
@@ -85,6 +85,6 @@ class GAN(nn.Module):
         x = self.fc2(x)
         x = self.fc3(x)
         x = F.relu(x)
-        x = x.view(16, 133, self.output_size)
+        x = x.view(self.batch_size, 133, self.output_size)
         return x
 
