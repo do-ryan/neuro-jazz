@@ -33,7 +33,7 @@ class CNN(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=5, kernel_size=(k1[0],k1[1]), stride=s).double()
         self.conv2 = nn.Conv2d(in_channels=5, out_channels=num_output_featuremaps, kernel_size=(k2[0],k2[1]), stride=s).double()
         #self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
-        self.fc_inputsize = int(1494000/(batch_size*2)) 
+        self.fc_inputsize = int(53120/(batch_size*2))
         self.pool = nn.MaxPool2d(3,3)
         self.fc1 = nn.Linear(self.fc_inputsize, 2000).double()
         self.fc2 = nn.Linear(2000, 1).double()
