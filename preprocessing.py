@@ -46,6 +46,18 @@ def shorter_than_threshold(file, threshold):
         print (max(note_offsets))
         return max(note_offsets) < threshold
 
+def crop_numpy(instances, upper_pitch, lower_pitch, length):
+        # returns numpy array that is cropped in length and pitch to decrease size
+        time_length = instances[0].shape[1]
+        i = 0
+        for instance in instances:
+                pitch_crop = instance[lower_pitch:upper_pitch, :]        # crop the pitch based on parameters defined
+                length_crop = pitch_crop[:, int(time_length/2)-int(length/2):int(time_length/2)+int(length/2)]      # crop time
+                instances[i] = length_crop
+                i = i+1
+        return instances
+
+
 def main():
 
         authentic_filepaths = glob.glob('training_data/authenticpiano3/*.mid*') # authentic midi filepaths
@@ -55,24 +67,20 @@ def main():
 
         counter = 0
         for file in authentic_filepaths:
-            if counter <= 47:
+            if counter <= 47:           # change back to 47 when done debugging
                 if shorter_than_threshold(file, threshold=500):
                         print("parsing ", file)
                         list.append(instances, midi_to_npy(file))
                         list.append(labels, 1) # 1 represents authentic
                         counter += 1
 
-        # for file in authentic_filepaths:
-        #         print("parsing ", file)
-        #         list.append(instances, midi_to_npy(file))
-        #         list.append(labels, 1) # 1 represents authentic
 
         # for file in nonauthentic_filepaths[0:counter]:
         #         print("parsing ", file)
-        #
         #         list.append(instances, midi_to_npy(file))
         #         list.append(labels, 0)
-        #
+
+
         max_instance_duration = 0
 
         for instance in instances:
@@ -81,10 +89,11 @@ def main():
                 instances[i] = np.pad(instance, ((0, 0), (0, max_instance_duration-instance.shape[1])), 'minimum')
         # pad all instances to the longest duration instance
 
+        new_instances = crop_numpy(instances=instances, upper_pitch=84, lower_pitch=48, length=32*24) #make sure length<< than threshold*24
         instances = np.stack(instances)
         labels = np.stack(labels)
 
-        np.append(instances, midi_to_npy(file))
+        np.append(new_instances, midi_to_npy(file))
         np.append(labels, 0)
 
 
