@@ -86,7 +86,7 @@ def main():
         for instance in instances:
                 max_instance_duration = max(max_instance_duration, (instance.shape[1]))
         for i in range(len(instances)):
-                instances[i] = np.pad(instance, ((0, 0), (0, max_instance_duration-instance.shape[1])), 'minimum')
+                instances[i] = np.pad(instances[i], ((0, 0), (0, max_instance_duration-instances[i].shape[1])), 'minimum')
         # pad all instances to the longest duration instance
 
         new_instances = crop_numpy(instances=instances, upper_pitch=84, lower_pitch=48, length=32*24) #make sure length<< than threshold*24
