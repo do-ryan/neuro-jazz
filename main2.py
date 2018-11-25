@@ -113,6 +113,7 @@ def main():
 
     for i, sample in enumerate(fake_output, 0):
         #fake_output is a collection of samples of a batch size
+        #print("trained numpy shape ", sample.detach().cpu().numpy().shape)
         numpy_to_midi(sample.detach().cpu().numpy(), "gen_data/sample{}.midi".format(i))
 
 
@@ -125,6 +126,7 @@ def test_generator_to_midi(batch_size, latent_size, output_size):
     model = GAN(input_size=latent_size, hidden_size=10, output_size=output_size, batch_size = batch_size)
 
     output = model(z).detach().numpy()[0]
+    #print("random numpy shape ", output.shape)
     # generated numpy array representing a sample of music
 
     numpy_to_midi(output, "gen_data/test1.midi")
