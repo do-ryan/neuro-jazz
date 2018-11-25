@@ -34,10 +34,10 @@ class CNN(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=5, kernel_size=(k1[0],k1[1]), stride=s).double()
         self.conv2 = nn.Conv2d(in_channels=5, out_channels=num_output_featuremaps, kernel_size=(k2[0],k2[1]), stride=s).double()
         #self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
-        self.fc_inputsize = 788850 
+        self.fc_inputsize = 91710 
         self.pool = nn.MaxPool2d(3,3)
-        self.fc1 = nn.Linear(self.fc_inputsize/10, 100).double()
-        self.fc2 = nn.Linear(100, 1).double()
+        self.fc1 = nn.Linear(self.fc_inputsize, 2000).double()
+        self.fc2 = nn.Linear(2000, 1).double()
 
     def forward(self, x):
 
@@ -62,11 +62,11 @@ class CNN(nn.Module):
         x = self.conv2(x)
         x = F.relu(x)
         x = self.pool(x)
-        x = x.view(-1, self.fc_inputsize/10)
+        x = x.view(-1, self.fc_inputsize)
         # x = x.contiguous().view(-1, 133*29082)
         x = self.fc1(x)
         x = F.relu(x)
-        x = F.sigmoid(self.fc2(x))
+        x = torch.sigmoid(self.fc2(x))
         x = x.squeeze(1)
         return x
 
@@ -85,6 +85,6 @@ class GAN(nn.Module):
         x = self.fc2(x)
         x = self.fc3(x)
         x = F.relu(x)
-        x = x.view(48, self.output_size)
+        x = x.view(16, 48, self.output_size)
         return x
 

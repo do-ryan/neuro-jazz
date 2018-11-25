@@ -49,8 +49,8 @@ def evaluate(net, loader, criterion):
 
 def main():
     MaxEpochs = 15
-    lr = 2 
-    batch_size = 8
+    lr = 0.5 
+    batch_size = 1
 
     net = CNN().to(device)
     net = net.cuda()
@@ -92,6 +92,8 @@ def main():
             # Forward pass, backward pass, and optimize
             outputs = net(inputs)
             labels = torch.from_numpy(labels)
+	    print(outputs)
+	    print(labels)
             
             loss = loss_fnc(input=outputs, target=labels.double().cuda())
             loss.backward()
@@ -100,7 +102,7 @@ def main():
             outputs = outputs.detach().cpu().numpy() # output of the model
 
             # Calculate the statistics
-            corr = (outputs > 0.0).squeeze().astype(int) != labels
+            corr = (outputs > 0.5).squeeze().astype(int) != labels
 
             total_train_err += int(corr.sum())
             total_train_loss += loss.item()

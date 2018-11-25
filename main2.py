@@ -41,8 +41,8 @@ def main():
     args = parser.parse_args()
 
     #test_generator_to_midi(1, 16, 64 * 24)
-    data = np.load('./data/instances.npy')
-    labels = np.load('./data/labels.npy') #don't need labels, all of the training data is authentic
+    data = np.load('./data/instance_test.npy')
+    labels = np.load('./data/labels_test.npy') #don't need labels, all of the training data is authentic
 
     train_loader = load_data(data, labels, args.batch_size)
 
@@ -55,13 +55,13 @@ def main():
         tot_corr = 0
         accum_loss = 0
         for i, batch in enumerate(train_loader, 0):
-            inputs, labels = data
+            inputs, labels = batch
 
-            authentic_labels = torch.ones(batch_size, 1)  # all training data for real data set to 1
-            fake_labels = torch.zeros(batch_size, 1)  # all output from generator fake so 0
+            authentic_labels = torch.ones(args.batch_size, 1)  # all training data for real data set to 1
+            fake_labels = torch.zeros(args.batch_size, 1)  # all output from generator fake so 0
 
-            d_optimizer.zero_grad()
-            g_optimizer.zero_grad()
+            optimizer_d.zero_grad()
+            optimizer_g.zero_grad()
             # initialize optimizers
 
             z = torch.randn(args.batch_size, args.latent_size)
@@ -91,7 +91,7 @@ def main():
 
             # TRAIN GENERATOR
             #################
-            z = torch.randn(batch_size, latent_size)
+            z = torch.randn(args.batch_size, latent_size)
             fake_output = model_g(z)
             new_auth_predictions = model_d(fake_output)
             g_loss = loss_fnc_g(new_auth_predictions, real_labels) # minimizes loss of predicting fake as real so the generator is tricking the discriminator
