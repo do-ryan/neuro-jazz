@@ -3,9 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d90de572-006e-4a06-81ee-975b43a63f29" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/datavisualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/datavisualization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main2.py" beforeDir="false" afterPath="$PROJECT_DIR$/main2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/preprocessing.py" afterDir="false" />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,18 +51,64 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="594480472">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="Python Console" value="237" />
+          <entry key="py" value="885" />
+          <entry key="txt" value="53" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PLAIN_TEXT" value="53" />
+          <entry key="Python" value="1122" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="2" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/preprocessing.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="607">
               <caret line="57" column="28" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
+=======
+            <state relative-caret-position="386">
+              <caret line="92" selection-start-line="92" selection-end-line="92" />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1543113808196" expanded="true" signature="2662:2938" ph="..." />
+                <marker date="1543179111854" expanded="true" signature="2998:3007" ph="..." />
+                <marker date="1543179111854" expanded="true" signature="2998:3515" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Anaconda3/envs/mie324/Lib/site-packages/numpy/core/shape_base.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="346" selection-start-line="346" selection-end-line="346" />
             </state>
           </provider>
         </entry>
@@ -66,7 +116,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
+            <state relative-caret-position="2023">
               <caret line="125" column="56" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="56" />
               <folding>
                 <element signature="e#13#59#0" expanded="true" />
@@ -78,7 +128,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main1.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="832">
+=======
+            <state relative-caret-position="1683">
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
               <caret line="106" column="44" lean-forward="true" selection-start-line="106" selection-start-column="35" selection-end-line="106" selection-end-column="44" />
               <folding>
                 <element signature="e#13#22#0" expanded="true" />
@@ -90,8 +144,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main2.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="174">
               <caret line="137" column="16" lean-forward="true" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
+=======
+            <state relative-caret-position="1751">
+              <caret line="110" column="47" lean-forward="true" selection-start-line="110" selection-start-column="47" selection-end-line="110" selection-end-column="47" />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -100,6 +159,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/datavisualization.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="250">
@@ -113,6 +173,12 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="406">
               <caret line="79" column="46" selection-start-line="79" selection-start-column="46" selection-end-line="79" selection-end-column="46" />
+=======
+        <entry file="file://$PROJECT_DIR$/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="17" column="32" selection-start-line="16" selection-start-column="19" selection-end-line="20" selection-end-column="46" />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
               <folding>
                 <element signature="e#15#27#0" expanded="true" />
               </folding>
@@ -121,6 +187,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/../../MIE324/assign3part2/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="244">
@@ -154,6 +221,10 @@
               </folding>
             </state>
           </provider>
+=======
+        <entry file="file://$PROJECT_DIR$/datavisualization.py">
+          <provider selected="true" editor-type-id="text-editor" />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
         </entry>
       </file>
     </leaf>
@@ -184,17 +255,28 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="25" />
     <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="777" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="NeuroJazz" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -206,7 +288,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -321,7 +402,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/mie324/bin/python" />
+      <option name="SDK_HOME" value="C:\Users\jiyun\Anaconda3\envs\mie324\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -363,25 +444,37 @@
       <option name="presentableId" value="Default" />
       <updated>1543013221754</updated>
     </task>
+    <task id="LOCAL-00001" summary="Cropping instances array in preprocessing complete">
+      <created>1543178183393</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1543178183393</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="25" y="23" width="1280" height="777" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2494043" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24925596" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
+<<<<<<< HEAD
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49960285" visible="true" weight="0.329927" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.40145984" />
+=======
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4985119" weight="0.3295082" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.25409836" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50039715" side_tool="true" weight="0.329927" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5014881" side_tool="true" weight="0.3295082" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -436,14 +529,13 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cropping instances array in preprocessing complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cropping instances array in preprocessing complete" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/preprocessing.py</url>
-          <line>46</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../../MIE324/assign3part2/main.py</url>
           <line>112</line>
@@ -460,6 +552,7 @@
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+<<<<<<< HEAD
           <url>file://$PROJECT_DIR$/main2.py</url>
           <line>127</line>
           <option name="timeStamp" value="19" />
@@ -468,6 +561,16 @@
           <url>file://$PROJECT_DIR$/main2.py</url>
           <line>158</line>
           <option name="timeStamp" value="20" />
+=======
+          <url>file://$PROJECT_DIR$/preprocessing.py</url>
+          <line>91</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/preprocessing.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="16" />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -480,72 +583,55 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/anaconda3/envs/mie324/lib/python3.6/site-packages/numpy/polynomial/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/mie324/lib/python3.6/site-packages/numpy/polynomial/__init__.py" />
     <entry file="file://$PROJECT_DIR$/main_discrim.py" />
     <entry file="file://$PROJECT_DIR$/main1" />
     <entry file="file://$PROJECT_DIR$/datacollection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="499">
           <caret line="76" column="70" selection-start-line="76" selection-start-column="70" selection-end-line="76" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../MIE324/assign1/model.py" />
+    <entry file="file://$PROJECT_DIR$/../../MIE324/assign1/util.py" />
+    <entry file="file://$PROJECT_DIR$/../../MIE324/assign1/visualize_data.py" />
+    <entry file="file://$PROJECT_DIR$/../../MIE324/assign2/model.py" />
+    <entry file="file://$PROJECT_DIR$/../../MIE324/assign2/main.py" />
+    <entry file="file://$PROJECT_DIR$/../../MIE324/assign3part2/main.py" />
+    <entry file="file://$PROJECT_DIR$/../../MIE324/assign3part2/model.py" />
+    <entry file="file://$PROJECT_DIR$/../../MIE324/assign1/train.py" />
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2023">
+          <caret line="125" column="56" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="56" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#13#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../MIE324/assign1/model.py">
+    <entry file="file://$PROJECT_DIR$/main1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="1683">
+          <caret line="106" column="44" lean-forward="true" selection-start-line="106" selection-start-column="35" selection-end-line="106" selection-end-column="44" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#13#22#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../MIE324/assign1/util.py">
+    <entry file="file://$PROJECT_DIR$/main2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1609">
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../MIE324/assign1/visualize_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../MIE324/assign2/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../MIE324/assign2/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5004">
-          <caret selection-end-column="15" />
+        <state relative-caret-position="1751">
+          <caret line="110" column="47" lean-forward="true" selection-start-line="110" selection-start-column="47" selection-end-line="110" selection-end-column="47" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/../../MIE324/assign3part2/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
@@ -555,27 +641,29 @@
           </folding>
         </state>
       </provider>
+=======
+    <entry file="file://$PROJECT_DIR$/datavisualization.py">
+      <provider selected="true" editor-type-id="text-editor" />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../MIE324/assign3part2/model.py">
+    <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="29" column="25" lean-forward="true" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+        <state relative-caret-position="170">
+          <caret line="17" column="32" selection-start-line="16" selection-start-column="19" selection-end-line="20" selection-end-column="46" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#15#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../MIE324/assign1/train.py">
+    <entry file="file://$USER_HOME$/Anaconda3/envs/mie324/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-802">
-          <caret line="64" column="16" lean-forward="true" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="113">
+          <caret line="308" selection-start-line="308" selection-end-line="308" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
@@ -583,11 +671,18 @@
           <folding>
             <element signature="e#13#59#0" expanded="true" />
           </folding>
+=======
+    <entry file="file://$USER_HOME$/Anaconda3/envs/mie324/Lib/site-packages/numpy/core/shape_base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="346" selection-start-line="346" selection-end-line="346" />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/preprocessing.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="607">
           <caret line="57" column="28" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
           <folding>
@@ -630,6 +725,14 @@
           <caret line="137" column="16" lean-forward="true" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+=======
+        <state relative-caret-position="386">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <marker date="1543179111854" expanded="true" signature="2998:3007" ph="..." />
+            <marker date="1543179111854" expanded="true" signature="2998:3515" ph="..." />
+>>>>>>> 3e2b3d1ed11c642a6d54c412f4f8eb2e10a5b2e5
           </folding>
         </state>
       </provider>
