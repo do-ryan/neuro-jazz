@@ -39,7 +39,7 @@ def main():
     parser.add_argument('--epochs', type=int, default=10)  # change default value to change hyperparameter value, or in run/debug configuration
     # or in terminal "python main.py --lr 0.001". "python main.py --help". have to use argparse
     parser.add_argument('--latent_size', type=int, default=8)
-    parser.add_argument('--generated_size', type=int, default=18726) #18726 is equal to size of training data
+    parser.add_argument('--generated_size', type=int, default=768) #default value is equal to size of training data
     args = parser.parse_args()
 
     #test_generator_to_midi(1, 16, 64 * 24)
