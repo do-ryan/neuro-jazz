@@ -133,8 +133,8 @@ def numpy_to_midi(numpy_input, filewrite_path):
 
     #initialization
     s1 = stream.Stream()
-    SUBDIVISION = 3988
-    VOLUME_SCALING = 10
+    SUBDIVISION = 240
+    VOLUME_SCALING = 50
     bRest = True
 
     for i in range(numpy_input.shape[0]):
