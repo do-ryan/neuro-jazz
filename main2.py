@@ -34,9 +34,9 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--batch_size', type=int, default=8)
-    parser.add_argument('--lr_d', type=float, default=0.01)
+    parser.add_argument('--lr_d', type=float, default=0.0001)
     parser.add_argument('--lr_g', type=float, default=0.01)
-    parser.add_argument('--epochs', type=int, default=10)  # change default value to change hyperparameter value, or in run/debug configuration
+    parser.add_argument('--epochs', type=int, default=50)  # change default value to change hyperparameter value, or in run/debug configuration
     # or in terminal "python main.py --lr 0.001". "python main.py --help". have to use argparse
     parser.add_argument('--latent_size', type=int, default=8)
     parser.add_argument('--generated_size', type=int, default=768) #default value is equal to size of training data
@@ -75,12 +75,12 @@ def main():
             # MODEL FWD AND LOSS CALCULATIONS
             #################################
             authentic_predictions = model_d(inputs)
-            print("inputs size: ", inputs.shape, "predictions size: ", authentic_predictions.shape, "label size: ", authentic_labels.shape)
+            #print("inputs size: ", inputs.shape, "predictions size: ", authentic_predictions.shape, "label size: ", authentic_labels.shape)
             d_loss_auth = loss_fnc_d(authentic_predictions, authentic_labels.double().cuda())
             # calculate loss of classifying authentic data
 
             fake_predictions = model_d(fake_output.double().cuda())
-            print("fake output size: ", fake_output.shape, "fake prediction size: ", fake_predictions.shape)
+            #print("fake output size: ", fake_output.shape, "fake prediction size: ", fake_predictions.shape)
             d_loss_fake = loss_fnc_d(fake_predictions, fake_labels.double().cuda())
             # calculate loss of classifying generated data
 
@@ -102,10 +102,12 @@ def main():
             z = torch.randn(args.batch_size, args.latent_size)
             fake_output = model_g(z.float().cuda())
             new_auth_predictions = model_d(fake_output.double().cuda())
-            print("new auth pred shape: ", new_auth_predictions.shape)
+            #print("new auth pred shape: ", new_auth_predictions.shape)
             g_loss = loss_fnc_g(new_auth_predictions, authentic_labels.double().cuda()) # minimizes loss of predicting fake as real so the generator is tricking the discriminator
             g_loss.backward() # generator result prediction loss has a reference to generator model (function)
+            optimizer_g.step()
             # so the gradient is computed wrt generator weights https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html
+            print("D loss: ", d_loss_tot[0], " G loss: ", g_loss[0])
 
         print("Train acc:{}".format(float(tot_corr) / (len(train_loader.dataset)*2)))
 
@@ -136,6 +138,8 @@ def numpy_to_midi(numpy_input, filewrite_path):
     SUBDIVISION = 24
     VOLUME_SCALING = 50
     bRest = True
+
+    print(numpy_input)
 
     for i in range(numpy_input.shape[0]):
         currentNoteLength = 0 # in subdivisions

@@ -53,7 +53,6 @@ class CNN(nn.Module):
         '''
 
         #x = x.contiguous().view(-1, 5250*133)
-        print(x.shape)
         x = torch.unsqueeze(x, dim=1)
         x = x.permute(0, 1, 3, 2)
         x = self.conv1(x) #RuntimeError: Expected 4-dimensional input for 4-dimensional weight [5, 1, 12, 96], but got input of size [10, 18726, 133] instead
@@ -63,14 +62,12 @@ class CNN(nn.Module):
         x = F.relu(x)
         x = self.pool(x)
 	x = x.squeeze()
-        print(x.shape)
         x = x.view(-1, self.fc_inputsize)
         # x = x.contiguous().view(-1, 133*29082)
         x = self.fc1(x)
         x = F.relu(x)
         x = torch.sigmoid(self.fc2(x))
         x = x.squeeze(1)
-        print(x.shape)
         return x
 
 class GAN(nn.Module):
