@@ -22,11 +22,11 @@ class CNN(nn.Module):
         '''
         Assignment 3 code above
         '''
-        p = 0
+        #p = 0 padding
         s = 1
         k1 = (12, 12)
-        k2 = (12, 12)
-        L = (133,26502)
+        k2 = (4, 4)
+        #L = (133,26502)
         num_output_featuremaps = 5
 
         #self.fc1 = nn.Linear(133*46842, 1).double()
@@ -77,7 +77,7 @@ class GAN(nn.Module):
         self.batch_size = batch_size
         self.fc1 = nn.Linear(input_size, hidden_size)
         self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, 133*output_size)
+        self.fc3 = nn.Linear(hidden_size, 36*output_size) #36 is the number of possible pitches
 
     def forward(self, x):
         x = x.view(-1, self.input_size)     # maybe don't need?
@@ -85,6 +85,6 @@ class GAN(nn.Module):
         x = self.fc2(x)
         x = self.fc3(x)
         x = F.relu(x)
-        x = x.view(self.batch_size, 133, self.output_size)
+        x = x.view(self.batch_size, 36, self.output_size)
         return x
 
