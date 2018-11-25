@@ -113,7 +113,7 @@ def main():
 
     for i, sample in enumerate(fake_output, 0):
         #fake_output is a collection of samples of a batch size
-        numpy_to_midi(sample, "gen_data/sample{}.midi".format(i))
+        numpy_to_midi(sample.detach().cpu().numpy(), "gen_data/sample{}.midi".format(i))
 
 
 
