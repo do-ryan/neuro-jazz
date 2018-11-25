@@ -24,8 +24,8 @@ class CNN(nn.Module):
         '''
         p = 0
         s = 1
-        k1 = (12, 96)
-        k2 = (12, 96)
+        k1 = (12, 12)
+        k2 = (12, 12)
         L = (133,26502)
         num_output_featuremaps = 5
 
@@ -34,7 +34,7 @@ class CNN(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=5, kernel_size=(k1[0],k1[1]), stride=s).double()
         self.conv2 = nn.Conv2d(in_channels=5, out_channels=num_output_featuremaps, kernel_size=(k2[0],k2[1]), stride=s).double()
         #self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
-        self.fc_inputsize = 91710 
+        self.fc_inputsize = int(1494000/16) 
         self.pool = nn.MaxPool2d(3,3)
         self.fc1 = nn.Linear(self.fc_inputsize, 2000).double()
         self.fc2 = nn.Linear(2000, 1).double()
@@ -77,7 +77,7 @@ class GAN(nn.Module):
         self.output_size = output_size
         self.fc1 = nn.Linear(input_size, hidden_size)
         self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, 48*output_size)
+        self.fc3 = nn.Linear(hidden_size, 133*output_size)
 
     def forward(self, x):
         x = x.view(-1, self.input_size)     # maybe don't need?
@@ -85,6 +85,6 @@ class GAN(nn.Module):
         x = self.fc2(x)
         x = self.fc3(x)
         x = F.relu(x)
-        x = x.view(16, 48, self.output_size)
+        x = x.view(16, 133, self.output_size)
         return x
 

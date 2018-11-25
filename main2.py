@@ -15,15 +15,15 @@ def load_data(data, labels, batchsize):
     return train_loader
 
 def load_d_model(lr):
-    model = CNN()
+    model = CNN().to(device)
     loss_fnc = torch.nn.BCELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 
     return model, loss_fnc, optimizer
 
 def load_g_model(input_size, generated_size, lr):
-    model = GAN(input_size=input_size, hidden_size = 10, output_size=24)
-    loss_fnc = torch.nn.CrossEntropyLoss()
+    model = GAN(input_size=input_size, hidden_size = 100, output_size=generated_size).to(device)
+    loss_fnc = torch.nn.BCELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 
     return model, loss_fnc, optimizer
@@ -37,7 +37,7 @@ def main():
     parser.add_argument('--epochs', type=int, default=10)  # change default value to change hyperparameter value, or in run/debug configuration
     # or in terminal "python main.py --lr 0.001". "python main.py --help". have to use argparse
     parser.add_argument('--latent_size', type=int, default=8)
-    parser.add_argument('--generated_size', type=int, default=24*4*8)
+    parser.add_argument('--generated_size', type=int, default=18726) #18726 is equal to size of training data
     args = parser.parse_args()
 
     #test_generator_to_midi(1, 16, 64 * 24)
@@ -56,9 +56,11 @@ def main():
         accum_loss = 0
         for i, batch in enumerate(train_loader, 0):
             inputs, labels = batch
+	    inputs = inputs.to(device)
+	    labels = labels.to(device)
 
-            authentic_labels = torch.ones(args.batch_size, 1)  # all training data for real data set to 1
-            fake_labels = torch.zeros(args.batch_size, 1)  # all output from generator fake so 0
+            authentic_labels = torch.ones(args.batch_size)  # all training data for real data set to 1
+            fake_labels = torch.zeros(args.batch_size)  # all output from generator fake so 0
 
             optimizer_d.zero_grad()
             optimizer_g.zero_grad()
@@ -66,36 +68,42 @@ def main():
 
             z = torch.randn(args.batch_size, args.latent_size)
             # create latent vectors
-            fake_output = model_g(z)
+            fake_output = model_g(z.float().cuda())
             # generate data
 
             # MODEL FWD AND LOSS CALCULATIONS
             #################################
             authentic_predictions = model_d(inputs)
-            d_loss_auth = loss_fnc_d(authentic_predictions, authentic_labels)
+	    print("inputs size: ", inputs.shape, "predictions size: ", authentic_predictions.shape, "label size: ", authentic_labels.shape)
+            d_loss_auth = loss_fnc_d(authentic_predictions, authentic_labels.double().cuda())
             # calculate loss of classifying authentic data
 
-            fake_predictions = model_d(fake_output)
-            d_loss_fake = loss_fnc_d(fake_predictions, fake_labels)
+            fake_predictions = model_d(fake_output.double().cuda())
+            print("fake output size: ", fake_output.shape, "fake prediction size: ", fake_predictions.shape)
+            d_loss_fake = loss_fnc_d(fake_predictions, fake_labels.double().cuda())
             # calculate loss of classifying generated data
 
-            corr = (fake_predictions > 0.5).squeeze().long() == fake_labels + (authentic_predictions > 0.5).squeeze().long() == authentic_labels
+	    authentic_predictions = authentic_predictions.detach().cpu().numpy()
+	    fake_predictions = fake_predictions.detach().cpu().numpy()
+
+            corr = int(((fake_predictions > 0.5).squeeze().astype(int) == fake_labels).sum()) + int(((authentic_predictions > 0.5).squeeze().astype(int) == authentic_labels).sum())
             tot_corr += corr
             # correct discriminator predictions
 
             # TRAIN DISCRIMINATOR
             #####################
-            d_loss_tot = d_loss_real + d_loss_auth # sum prediction loss of both sub data sets
-            d_loss_tot.backwards()
-            d_optimizer.step()
+            d_loss_tot = d_loss_fake + d_loss_auth # sum prediction loss of both sub data sets
+            d_loss_tot.backward()
+            optimizer_d.step()
 
             # TRAIN GENERATOR
             #################
-            z = torch.randn(args.batch_size, latent_size)
-            fake_output = model_g(z)
-            new_auth_predictions = model_d(fake_output)
-            g_loss = loss_fnc_g(new_auth_predictions, real_labels) # minimizes loss of predicting fake as real so the generator is tricking the discriminator
-            g_loss.backwards() # generator result prediction loss has a reference to generator model (function)
+            z = torch.randn(args.batch_size, args.latent_size)
+            fake_output = model_g(z.float().cuda())
+            new_auth_predictions = model_d(fake_output.double().cuda())
+	    print("new auth pred shape: ", new_auth_predictions.shape)
+            g_loss = loss_fnc_g(new_auth_predictions, authentic_labels.double().cuda()) # minimizes loss of predicting fake as real so the generator is tricking the discriminator
+            g_loss.backward() # generator result prediction loss has a reference to generator model (function)
             # so the gradient is computed wrt generator weights https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html
 
         print("Train acc:{}".format(float(tot_corr) / (len(train_loader.dataset)*2)))
