@@ -61,7 +61,7 @@ class CNN(nn.Module):
         x = self.conv2(x)
         x = F.relu(x)
         x = self.pool(x)
-	x = x.squeeze()
+        x = x.squeeze()
         x = x.view(-1, self.fc_inputsize)
         # x = x.contiguous().view(-1, 133*29082)
         x = self.fc1(x)

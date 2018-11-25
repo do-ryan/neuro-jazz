@@ -30,7 +30,7 @@ def load_g_model(input_size, generated_size, lr, batch_size):
 
 def main():
 
-    #test_generator_to_midi(1, 4, 24*4)
+    test_generator_to_midi(1, 4, 24*4)
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--batch_size', type=int, default=8)
@@ -127,8 +127,10 @@ def test_generator_to_midi(batch_size, latent_size, output_size):
     output = model(z).detach().numpy()[0]
     # generated numpy array representing a sample of music
 
-    numpy_to_midi(output, "gen_data/sample1.midi")
+    numpy_to_midi(output, "gen_data/test1.midi")
 
+def note_to_offset(note):
+    return note.offset
 
 def numpy_to_midi(numpy_input, filewrite_path):
     # writes resultant midi to filewrite_path
@@ -139,6 +141,8 @@ def numpy_to_midi(numpy_input, filewrite_path):
     VOLUME_SCALING = 50
     bRest = True
 
+    noteList = [] # stores list of all notes, to be sorted for appending to stream
+
     print(numpy_input)
 
     for i in range(numpy_input.shape[0]):
@@ -148,7 +152,7 @@ def numpy_to_midi(numpy_input, filewrite_path):
                 if bRest == True: # when state changes from rest to note
                     n = note.Note() # instantiate note object
                     p = pitch.Pitch() # instantiate pitch object
-                    p.ps = i # using pitch space representation
+                    p.ps = i+48 # using pitch space representation
                     n.pitch = p # assign pitch in pitch space representation to note pitch
                     n.volume.velocityScalar = numpy_input[i][j]*VOLUME_SCALING
                     n.offset = j/SUBDIVISION
@@ -160,11 +164,15 @@ def numpy_to_midi(numpy_input, filewrite_path):
                 if bRest == False: # when state changes from note to rest:
                     d = duration.Duration(currentNoteLength/SUBDIVISION)
                     n.duration = d
-                    s1.append(n) #append the note to stream
+                    noteList.append(n) #append the note to stream
                 bRest = True # bRest is true if a note doesn't take place on the current element in the array
                 currentNoteLength = 0
 
         print("parsing numpy pitch ", i)
+
+    noteList.sort(key=note_to_offset)
+    for nt in noteList:
+        s1.append(nt)
 
     s1.write("midi", filewrite_path)
     print ("New midi created at: ", filewrite_path)
