@@ -95,7 +95,7 @@ def plot_notes_contour(midipart, instrument, midi_path, time_range_to_plot):
 
 def main():
 
-        midi_path = "training_data/authentic/10.midi"
+        midi_path = "gen_data/file1.midi"
         example1 = read_midi(midi_path)
         # parse midi file
 

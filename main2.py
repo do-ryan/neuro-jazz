@@ -30,6 +30,8 @@ def load_g_model(input_size, generated_size, lr, batch_size):
 
 def main():
 
+    test_generator_to_midi(1, 4, 24*4)
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--batch_size', type=int, default=8)
     parser.add_argument('--lr_d', type=float, default=0.01)
@@ -43,8 +45,6 @@ def main():
     #test_generator_to_midi(1, 16, 64 * 24)
     data = np.load('./data/instance_authentic.npy')
     labels = np.load('./data/labels_authentic.npy') #don't need labels, all of the training data is authentic
-
-    print(data.shape)
   
     train_loader = load_data(data, labels, args.batch_size)
 
@@ -58,8 +58,7 @@ def main():
         accum_loss = 0
         for i, batch in enumerate(train_loader, 0):
             inputs, labels = batch
-	    inputs = inputs.to(device)
-	    labels = labels.to(device)
+            inputs = inputs.to(device)
 
             authentic_labels = torch.ones(args.batch_size)  # all training data for real data set to 1
             fake_labels = torch.zeros(args.batch_size)  # all output from generator fake so 0
@@ -76,7 +75,7 @@ def main():
             # MODEL FWD AND LOSS CALCULATIONS
             #################################
             authentic_predictions = model_d(inputs)
-	    print("inputs size: ", inputs.shape, "predictions size: ", authentic_predictions.shape, "label size: ", authentic_labels.shape)
+            print("inputs size: ", inputs.shape, "predictions size: ", authentic_predictions.shape, "label size: ", authentic_labels.shape)
             d_loss_auth = loss_fnc_d(authentic_predictions, authentic_labels.double().cuda())
             # calculate loss of classifying authentic data
 
@@ -85,8 +84,8 @@ def main():
             d_loss_fake = loss_fnc_d(fake_predictions, fake_labels.double().cuda())
             # calculate loss of classifying generated data
 
-	    authentic_predictions = authentic_predictions.detach().cpu().numpy()
-	    fake_predictions = fake_predictions.detach().cpu().numpy()
+            authentic_predictions = authentic_predictions.detach().cpu().numpy()
+            fake_predictions = fake_predictions.detach().cpu().numpy()
 
             corr = int(((fake_predictions > 0.5).squeeze().astype(int) == fake_labels).sum()) + int(((authentic_predictions > 0.5).squeeze().astype(int) == authentic_labels).sum())
             tot_corr += corr
@@ -103,7 +102,7 @@ def main():
             z = torch.randn(args.batch_size, args.latent_size)
             fake_output = model_g(z.float().cuda())
             new_auth_predictions = model_d(fake_output.double().cuda())
-	    print("new auth pred shape: ", new_auth_predictions.shape)
+            print("new auth pred shape: ", new_auth_predictions.shape)
             g_loss = loss_fnc_g(new_auth_predictions, authentic_labels.double().cuda()) # minimizes loss of predicting fake as real so the generator is tricking the discriminator
             g_loss.backward() # generator result prediction loss has a reference to generator model (function)
             # so the gradient is computed wrt generator weights https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html
@@ -117,36 +116,54 @@ def main():
 
 
 def test_generator_to_midi(batch_size, latent_size, output_size):
+    # output size is length in subdivisions
     z = torch.randn(batch_size, latent_size)
     # create random vector
 
-    model = GAN(input_size=8, hidden_size=10, output_size=24*4*8)
+    model = GAN(input_size=latent_size, hidden_size=10, output_size=output_size, batch_size = batch_size)
 
-    output = model(z).detach().numpy()
+    output = model(z).detach().numpy()[0]
     # generated numpy array representing a sample of music
 
     numpy_to_midi(output, "gen_data/sample1.midi")
 
 
 def numpy_to_midi(numpy_input, filewrite_path):
-    # returns stream
+    # writes resultant midi to filewrite_path
+
+    #initialization
     s1 = stream.Stream()
-    SUBDIVISION = 24
+    SUBDIVISION = 3988
+    VOLUME_SCALING = 10
+    bRest = True
 
     for i in range(numpy_input.shape[0]):
+        currentNoteLength = 0 # in subdivisions
         for j in range(numpy_input.shape[1]):
             if numpy_input[i][j] != 0:
-                # placeholder for note durations
-                n = note.Note()
-                p = pitch.Pitch()
-                p.ps = i # using pitch space representation
-                n.pitch = p
-                n.volume.velocityScalar = numpy_input[i][j]*50
-                n.offset = j/SUBDIVISION
-                s1.append(n)
-        print(i)
+                if bRest == True: # when state changes from rest to note
+                    n = note.Note() # instantiate note object
+                    p = pitch.Pitch() # instantiate pitch object
+                    p.ps = i # using pitch space representation
+                    n.pitch = p # assign pitch in pitch space representation to note pitch
+                    n.volume.velocityScalar = numpy_input[i][j]*VOLUME_SCALING
+                    n.offset = j/SUBDIVISION
+                    currentNoteLength += 1
+                else: # if already in current note
+                    currentNoteLength += 1
+                bRest = False # current element is a note so bRest is false
+            else:
+                if bRest == False: # when state changes from note to rest:
+                    d = duration.Duration(currentNoteLength/SUBDIVISION)
+                    n.duration = d
+                    s1.append(n) #append the note to stream
+                bRest = True # bRest is true if a note doesn't take place on the current element in the array
+                currentNoteLength = 0
+
+        print("parsing numpy pitch ", i)
 
     s1.write("midi", filewrite_path)
+    print ("New midi created at: ", filewrite_path)
 
 if __name__ == "__main__":
     main()

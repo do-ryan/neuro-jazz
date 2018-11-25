@@ -74,7 +74,7 @@ class GAN(nn.Module):
         super(GAN, self).__init__()
         self.input_size = input_size
         self.output_size = output_size
-	self.batch_size = batch_size
+        self.batch_size = batch_size
         self.fc1 = nn.Linear(input_size, hidden_size)
         self.fc2 = nn.Linear(hidden_size, hidden_size)
         self.fc3 = nn.Linear(hidden_size, 133*output_size)
