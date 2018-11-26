@@ -22,7 +22,7 @@ def load_d_model(lr, batch_size):
     return model, loss_fnc, optimizer
 
 def load_g_model(input_size, generated_size, lr, batch_size):
-    model = GAN(input_size=input_size, hidden_size = 100, output_size=generated_size, batch_size=batch_size).to(device)
+    model = GAN(input_size=input_size, hidden_size = 1000, output_size=generated_size, batch_size=batch_size).to(device)
     loss_fnc = torch.nn.BCELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 
@@ -34,11 +34,11 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--batch_size', type=int, default=8)
-    parser.add_argument('--lr_d', type=float, default=0.1)
-    parser.add_argument('--lr_g', type=float, default=0.6)
-    parser.add_argument('--epochs', type=int, default=10)  # change default value to change hyperparameter value, or in run/debug configuration
+    parser.add_argument('--lr_d', type=float, default=0.4)
+    parser.add_argument('--lr_g', type=float, default=0.75)
+    parser.add_argument('--epochs', type=int, default=25)  # change default value to change hyperparameter value, or in run/debug configuration
     # or in terminal "python main.py --lr 0.001". "python main.py --help". have to use argparse
-    parser.add_argument('--latent_size', type=int, default=1)
+    parser.add_argument('--latent_size', type=int, default=8)
     parser.add_argument('--generated_size', type=int, default=1536) #default value is equal to size of training data
     args = parser.parse_args()
 
@@ -124,7 +124,7 @@ def test_generator_to_midi(batch_size, latent_size, output_size):
     z = torch.randn(batch_size, latent_size)
     # create random vector
 
-    model = GAN(input_size=latent_size, hidden_size=10, output_size=output_size, batch_size = batch_size)
+    model = GAN(input_size=latent_size, hidden_size=1000, output_size=output_size, batch_size = batch_size)
 
     output = model(z).detach().numpy()[0]
     #print("random numpy shape ", output.shape)

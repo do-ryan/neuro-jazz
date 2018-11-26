@@ -27,8 +27,12 @@ def subdivide_notes(pitches, note_offsets, volume, note_durations):
 def midi_to_npy(midifilepath):
 # takes in a midi filepath and returns a volume scaled one-hot encoded 2d npy array pitch x time. The midi file only has one track
 
-        midi_stream = converter.parse(midifilepath).parts[0] # midifiles should only have 1 part (temporarily?)
-
+        max_notes = 0
+        midi_stream = converter.parse(midifilepath).parts[0]
+        for part in converter.parse(midifilepath).parts:
+                if len(part.pitches) > max_notes: # we want the biggest part (aka piano part) to be in training data
+                        max_notes = len(part.pitches)
+                        midi_stream = part
 
         pitches, parent_objects = extract_notes(midi_stream.flat.notes) # pitches is a list of floats of all pitch "instances in the midi file, parent_objects is a mix of note/chord objects. chord objects are repeated for each note in the chord
 
@@ -60,15 +64,15 @@ def crop_numpy(instances, upper_pitch, lower_pitch, length):
 
 def main():
 
-        authentic_filepaths = glob.glob('training_data/authenticpiano3/*.mid*') # authentic midi filepaths
+        authentic_filepaths = glob.glob('training_data/authentic3/*.mid*') # authentic midi filepaths
         nonauthentic_filepaths = glob.glob('training_data/nonauthentic/*.mid*') # placeholder nonauthentic midi filepaths
         instances = []
         labels = []
 
         counter = 0
         for file in authentic_filepaths:
-            if counter <= 127:           # change back to 47 when done debugging
-                if shorter_than_threshold(file, threshold=500):
+            if counter <= 63:           # change back to 47 when done debugging
+                #if shorter_than_threshold(file, threshold=500):
                         print("parsing ", file)
                         list.append(instances, midi_to_npy(file))
                         list.append(labels, 1) # 1 represents authentic
@@ -89,7 +93,7 @@ def main():
                 instances[i] = np.pad(instances[i], ((0, 0), (0, max_instance_duration-instances[i].shape[1])), 'minimum')
         # pad all instances to the longest duration instance
 
-        new_instances = crop_numpy(instances=instances, upper_pitch=84, lower_pitch=48, length=64*24) #make sure length<< than threshold*24
+        new_instances = crop_numpy(instances=instances, upper_pitch=84, lower_pitch=36, length=64*24) #make sure length<< than threshold*24
         instances = np.stack(instances)
         labels = np.stack(labels)
 
