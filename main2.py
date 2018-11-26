@@ -30,16 +30,16 @@ def load_g_model(input_size, generated_size, lr, batch_size):
 
 def main():
 
-    test_generator_to_midi(1, 4, 24*4)
+    test_generator_to_midi(1, 4, 1536)
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--batch_size', type=int, default=8)
-    parser.add_argument('--lr_d', type=float, default=0.0001)
-    parser.add_argument('--lr_g', type=float, default=0.01)
-    parser.add_argument('--epochs', type=int, default=50)  # change default value to change hyperparameter value, or in run/debug configuration
+    parser.add_argument('--lr_d', type=float, default=0.1)
+    parser.add_argument('--lr_g', type=float, default=0.6)
+    parser.add_argument('--epochs', type=int, default=10)  # change default value to change hyperparameter value, or in run/debug configuration
     # or in terminal "python main.py --lr 0.001". "python main.py --help". have to use argparse
-    parser.add_argument('--latent_size', type=int, default=8)
-    parser.add_argument('--generated_size', type=int, default=768) #default value is equal to size of training data
+    parser.add_argument('--latent_size', type=int, default=1)
+    parser.add_argument('--generated_size', type=int, default=1536) #default value is equal to size of training data
     args = parser.parse_args()
 
     #test_generator_to_midi(1, 16, 64 * 24)
@@ -69,19 +69,20 @@ def main():
 
             z = torch.randn(args.batch_size, args.latent_size)
             # create latent vectors
-            fake_output = model_g(z.float().cuda())
+            fake_output = model_g(z.float())
+
             # generate data
 
             # MODEL FWD AND LOSS CALCULATIONS
             #################################
             authentic_predictions = model_d(inputs)
             #print("inputs size: ", inputs.shape, "predictions size: ", authentic_predictions.shape, "label size: ", authentic_labels.shape)
-            d_loss_auth = loss_fnc_d(authentic_predictions, authentic_labels.double().cuda())
+            d_loss_auth = loss_fnc_d(authentic_predictions, authentic_labels.double())
             # calculate loss of classifying authentic data
 
-            fake_predictions = model_d(fake_output.double().cuda())
+            fake_predictions = model_d(fake_output.double())
             #print("fake output size: ", fake_output.shape, "fake prediction size: ", fake_predictions.shape)
-            d_loss_fake = loss_fnc_d(fake_predictions, fake_labels.double().cuda())
+            d_loss_fake = loss_fnc_d(fake_predictions, fake_labels.double())
             # calculate loss of classifying generated data
 
             authentic_predictions = authentic_predictions.detach().cpu().numpy()
@@ -100,16 +101,16 @@ def main():
             # TRAIN GENERATOR
             #################
             z = torch.randn(args.batch_size, args.latent_size)
-            fake_output = model_g(z.float().cuda())
-            new_auth_predictions = model_d(fake_output.double().cuda())
+            fake_output = model_g(z.float())
+            new_auth_predictions = model_d(fake_output.double())
             #print("new auth pred shape: ", new_auth_predictions.shape)
-            g_loss = loss_fnc_g(new_auth_predictions, authentic_labels.double().cuda()) # minimizes loss of predicting fake as real so the generator is tricking the discriminator
+            g_loss = loss_fnc_g(new_auth_predictions, authentic_labels.double()) # minimizes loss of predicting fake as real so the generator is tricking the discriminator
             g_loss.backward() # generator result prediction loss has a reference to generator model (function)
             optimizer_g.step()
             # so the gradient is computed wrt generator weights https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html
-            print("D loss: ", d_loss_tot[0], " G loss: ", g_loss[0])
+            print("D loss: ", d_loss_tot.data[0].item(), " G loss: ", g_loss.data[0].item())
 
-        print("Train acc:{}".format(float(tot_corr) / (len(train_loader.dataset)*2)))
+        print("Epoch ", epoch+1, "Train acc:{}".format(float(tot_corr) / (len(train_loader.dataset)*2)))
 
     for i, sample in enumerate(fake_output, 0):
         #fake_output is a collection of samples of a batch size
@@ -131,8 +132,9 @@ def test_generator_to_midi(batch_size, latent_size, output_size):
 
     numpy_to_midi(output, "gen_data/test1.midi")
 
-def note_to_offset(note):
-    return note.offset
+def denoise(np_note_map):
+    # takes in a pitch vs time step numpy array and denoises it
+    return
 
 def numpy_to_midi(numpy_input, filewrite_path):
     # writes resultant midi to filewrite_path
@@ -140,12 +142,14 @@ def numpy_to_midi(numpy_input, filewrite_path):
     #initialization
     s1 = stream.Stream()
     SUBDIVISION = 24
-    VOLUME_SCALING = 50
+    VOLUME_SCALING = 20
     bRest = True
 
     noteList = [] # stores list of all notes, to be sorted for appending to stream
 
     print(numpy_input)
+
+    #numpy_input = denoise(numpy_input)
 
     for i in range(numpy_input.shape[0]):
         currentNoteLength = 0 # in subdivisions
@@ -166,15 +170,12 @@ def numpy_to_midi(numpy_input, filewrite_path):
                 if bRest == False: # when state changes from note to rest:
                     d = duration.Duration(currentNoteLength/SUBDIVISION)
                     n.duration = d
-                    noteList.append(n) #append the note to stream
+                    if n.duration.quarterLength >= 0.25: # filter notes shorter than a sixteenth
+                        s1.insert(n.offset, n) # insert note at its offset to stream, and will combine with a note if there is already one at that position
                 bRest = True # bRest is true if a note doesn't take place on the current element in the array
                 currentNoteLength = 0
 
         print("parsing numpy pitch ", i)
-
-    noteList.sort(key=note_to_offset)
-    for nt in noteList:
-        s1.append(nt)
 
     s1.write("midi", filewrite_path)
     print ("New midi created at: ", filewrite_path)

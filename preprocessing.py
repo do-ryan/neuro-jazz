@@ -67,7 +67,7 @@ def main():
 
         counter = 0
         for file in authentic_filepaths:
-            if counter <= 47:           # change back to 47 when done debugging
+            if counter <= 127:           # change back to 47 when done debugging
                 if shorter_than_threshold(file, threshold=500):
                         print("parsing ", file)
                         list.append(instances, midi_to_npy(file))
@@ -89,7 +89,7 @@ def main():
                 instances[i] = np.pad(instances[i], ((0, 0), (0, max_instance_duration-instances[i].shape[1])), 'minimum')
         # pad all instances to the longest duration instance
 
-        new_instances = crop_numpy(instances=instances, upper_pitch=84, lower_pitch=48, length=32*24) #make sure length<< than threshold*24
+        new_instances = crop_numpy(instances=instances, upper_pitch=84, lower_pitch=48, length=64*24) #make sure length<< than threshold*24
         instances = np.stack(instances)
         labels = np.stack(labels)
 
