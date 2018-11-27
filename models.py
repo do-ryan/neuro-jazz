@@ -20,7 +20,7 @@ class CNN(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=8, kernel_size=(k1[0],k1[1]), stride=(12, 48)).double()
         self.conv2 = nn.Conv2d(in_channels=8, out_channels=num_output_featuremaps, kernel_size=(k2[0],k2[1]), stride=k2).double()
         #self.fc_inputsize = int((((L[0]-k1[0])/s+1-k2[0])/s+1)*(((L[1]-k1[1])/s+1-k2[1])/s+1)*num_output_featuremaps)
-        self.fc_inputsize = int(280/batch_size) # size of fully connected input
+        self.fc_inputsize = int(280/batch_size)
         self.pool = nn.MaxPool2d(2,2)
         self.fc1 = nn.Linear(self.fc_inputsize, 2000).double()
         self.fc2 = nn.Linear(2000, 500).double()
@@ -30,27 +30,30 @@ class CNN(nn.Module):
         x = torch.unsqueeze(x, dim=1)
         x = x.permute(0, 1, 2, 3)
         x = F.relu(self.conv1(x))
+        x = self.conv1(x) #RuntimeError: Expected 4-dimensional input for 4-dimensional weight [5, 1, 12, 96], but got input of size [10, 18726, 133] instead
+        x = F.relu(x)
         x = self.pool(x)
-        x = F.relu(self.conv2(x))
+        x = self.conv2(x)
+        x = F.relu(x)
         x = x.squeeze()
         x = x.view(-1, self.fc_inputsize)
-        x = F.relu(self.fc1(x))
+        # x = x.contiguous().view(-1, 133*29082)
+        x = self.fc1(x)
         x = F.relu(self.fc2(x))
         x = torch.sigmoid(self.fc3(x))
         x = x.squeeze(1)
         return x
 
 class GAN(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size, batch_size, pitch_range):
+    def __init__(self, input_size, hidden_size, output_size, batch_size):
         super(GAN, self).__init__()
         self.input_size = input_size
         self.output_size = output_size
         self.batch_size = batch_size
-        self.pitch_range = pitch_range
         self.fc1 = nn.Linear(input_size, hidden_size)
         self.fc2 = nn.Linear(hidden_size, hidden_size)
         self.fc3 = nn.Linear(hidden_size, hidden_size)
-        self.fc4 = nn.Linear(hidden_size, self.pitch_range*output_size) #48 is the number of possible pitches
+        self.fc4 = nn.Linear(hidden_size, 48*output_size) #36 is the number of possible pitches
 
         #self.tconv1 = nn.ConvTranspose2d()
 
@@ -60,6 +63,6 @@ class GAN(nn.Module):
         x = F.relu(self.fc2(x))
         x = F.relu(self.fc3(x))
         x = F.relu(self.fc4(x))
-        x = x.view(self.batch_size, self.pitch_range, self.output_size)
+        x = x.view(self.batch_size, 48, self.output_size)
         return x
 
