@@ -28,7 +28,7 @@ class CNN(nn.Module):
 
     def forward(self, x):
         x = torch.unsqueeze(x, dim=1)
-        #x = x.permute(0, 1, 2, 3)
+        x = x.permute(0, 1, 2, 3)
         x = F.relu(self.conv1(x))
         x = self.pool(x)
         x = F.relu(self.conv2(x))
@@ -51,6 +51,8 @@ class GAN(nn.Module):
         self.fc2 = nn.Linear(hidden_size, hidden_size)
         self.fc3 = nn.Linear(hidden_size, hidden_size)
         self.fc4 = nn.Linear(hidden_size, self.pitch_range*output_size) #48 is the number of possible pitches
+
+        #self.tconv1 = nn.ConvTranspose2d()
 
     def forward(self, x):
         x = x.view(-1, self.input_size)     # maybe don't need?
